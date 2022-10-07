@@ -1,4 +1,4 @@
-# 2B Conventions
+# Conventions
 
 ## Database Procedures
 
