@@ -12,14 +12,11 @@ jobs:
         with:
           node-version: 16
 
-      - name: Install Ionic CLI
-        run: npm install -g @ionic/cli
-
       - name: Install dependencies
-        run: npm install --legacy-peer-deps
+        run: npm install 
 
       - name: Build
-        run: ionic build
+        run: npm build
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -29,4 +26,4 @@ jobs:
           aws-region: us-east-2
 
       - name: Deploy static site to S3 bucket
-        run: aws s3 sync build/ s3://showcase.dev.lab.eten.bible
+        run: aws s3 sync build/ s3://docs.lab.eten.bible
