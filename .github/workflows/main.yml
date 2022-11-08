@@ -1,0 +1,32 @@
+name: Upload Website to S3
+on: [push]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install Ionic CLI
+        run: npm install -g @ionic/cli
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Build
+        run: ionic build
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_GITHUB_S3_PUSHER_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_GITHUB_S3_PUSHER_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+
+      - name: Deploy static site to S3 bucket
+        run: aws s3 sync build/ s3://showcase.dev.lab.eten.bible
