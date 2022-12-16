@@ -1,4 +1,4 @@
-# Developer Onboarding
+# Onboarding for Developers
 
 This document aims quick and flawless onboarding for a developer.
 
