@@ -63,7 +63,7 @@ Ensure no errors in the output.
 
 ## Develop in the local environment
 
-Now that you have setup youe local environment, let's consider two ways of working with that.
+Now that you have setup your local environment, let's consider two ways of working with that.
 
 Notes:
 
