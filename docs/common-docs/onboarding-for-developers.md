@@ -14,7 +14,8 @@ git clone git@github.com:etenlab/dev-env.git
 
 4. Great, now come in: `cd ./dev-env`
 5. Configure `.env` file using `.env.example`:
-6. Run
+6. Make sure to have the latest images: run `docker-compose pull`. Use this command to keep your services up-to-date.
+7. Run
 
 ```bash
 docker-compose -f local/docker-compose.yml --env-file .env up
