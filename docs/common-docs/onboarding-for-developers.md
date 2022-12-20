@@ -57,6 +57,8 @@ pip install psycopg2-binary bs4
 sh scripts/dataset-scripts/gimme.sh
 ```
 
+6. After running the script, open `localhost:${PORT_GRAPHQL}` (Hasura web interface) and ensure your data is tracked. If not tracked, add it manually using url like this: `postgresql://postgres:example@postgres_db:5432/eil` (`postgresql://${DB_USERNAME}:${DB_PASSWORD}@postgres_db:5432/${DB_EIL_DATABASE}`)
+
 Ensure no errors in the output.
 
 **Congratulations**! Now the database is filled with data.
