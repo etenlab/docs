@@ -58,7 +58,7 @@ sh scripts/dataset-scripts/gimme.sh
 
 Ensure no errors in the output.
 
-6. After running the script, open `localhost:${PORT_GRAPHQL}` (Hasura web interface) and ensure your data is tracked. If not tracked, add it manually using url like this: `postgresql://postgres:example@postgres_db:5432/eil` (`postgresql://${DB_USERNAME}:${DB_PASSWORD}@postgres_db:5432/${DB_EIL_DATABASE}`). Set schema name to `public`.
+6. After running the script, open `localhost:${PORT_GRAPHQL}` (Hasura web interface) and ensure your data is tracked. If not tracked, add it manually using url like this: `postgresql://postgres:example@postgres:5432/eil` (`postgresql://${DB_USERNAME}:${DB_PASSWORD}@postgres:5432/${DB_EIL_DATABASE}`). Set schema name to `public`.
 
 **Congratulations**! Now the database is filled with data.
 
