@@ -9,12 +9,12 @@
 
 ## Code Formatting
 
-Format code with `prettier` using the next config (`.prettierrc.json`):
+Format code with `prettier` using the next config (`.prettierrc`):
 
 ```json
 {
   "singleQuote": true,
-  "trailingComma": "es5"
+  "trailingComma": "all"
 }
 ```
 
