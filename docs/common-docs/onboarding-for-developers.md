@@ -21,7 +21,7 @@ git clone git@github.com:etenlab/dev-env.git
 docker-compose -f local/docker-compose.yml --env-file .env up
 ```
 
-Some services may fail due to lack of data at this moment. Now, let's fill the database with some data
+Some services may temporary fail, but eventually there should be no errors in the console. At this point, everything is running correctly. Now, let's fill the database with some data
 
 Notes:
 
@@ -58,7 +58,7 @@ sh scripts/dataset-scripts/gimme.sh
 
 Ensure no errors in the output.
 
-6. After running the script, open `localhost:${PORT_GRAPHQL}` (Hasura web interface) and ensure your data is tracked. If not tracked, add it manually using url like this: `postgresql://postgres:example@postgres_db:5432/eil` (`postgresql://${DB_USERNAME}:${DB_PASSWORD}@postgres_db:5432/${DB_EIL_DATABASE}`). Set schema name to `public`.
+6. After running the script, open `localhost:${PORT_GRAPHQL}` (Hasura web interface) and ensure your data is tracked. If not tracked, add it manually using url like this: `postgresql://postgres:example@postgres:5432/eil` (`postgresql://${DB_USERNAME}:${DB_PASSWORD}@postgres:5432/${DB_EIL_DATABASE}`). Set schema name to `public`.
 
 **Congratulations**! Now the database is filled with data.
 
