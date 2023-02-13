@@ -1,5 +1,9 @@
 name: Upload Website to S3
-on: [push]
+on:
+  push:
+    branches:
+      - dev
+      
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -26,4 +30,4 @@ jobs:
           aws-region: us-east-2
 
       - name: Deploy static site to S3 bucket
-        run: aws s3 sync build/ s3://docs.lab.eten.bible
+        run: aws s3 sync build/ s3://devdocsstack-cbdevwebsitebucketc58c9965-16s96kcm90hfg
