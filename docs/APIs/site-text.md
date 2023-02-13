@@ -1,4 +1,4 @@
-# Site Text Api
+# Site Text API
 
 ## Requirements
 

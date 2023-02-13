@@ -1,6 +1,6 @@
 {
-  "label": "Service Docs",
-  "position": 3,
+  "label": "Components",
+  "position": 4,
   "link": {
     "type": "generated-index"
   }
