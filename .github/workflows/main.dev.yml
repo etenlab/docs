@@ -1,4 +1,4 @@
-name: Upload Website to S3
+name: DEV Upload Website to S3
 on:
   push:
     branches:
