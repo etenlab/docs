@@ -9,36 +9,36 @@ type FeatureItem = {
 };
 
 const FeatureList: FeatureItem[] = [
-  {
-    title: "R&D",
-    Svg: require("@site/static/img/undraw_docusaurus_mountain.svg").default,
-    description: (
-      <>
-        ETEN Innovation labs is conducting R&D in the field of Bible
-        Translation.
-      </>
-    ),
-  },
-  {
-    title: "Innovative Solutions",
-    Svg: require("@site/static/img/undraw_docusaurus_tree.svg").default,
-    description: (
-      <>
-        ETEN Innovation labs is coming up with innovation solutions to
-        challenging problems faced by Bible translation organizations.
-      </>
-    ),
-  },
-  {
-    title: "Latest Tech Stack",
-    Svg: require("@site/static/img/undraw_docusaurus_react.svg").default,
-    description: (
-      <>
-        ETEN Innovation labs is using the latest tech stack to build the next
-        generation of Bible Translation tools.
-      </>
-    ),
-  },
+  // {
+  //   title: "R&D",
+  //   Svg: require("@site/static/img/undraw_docusaurus_mountain.svg").default,
+  //   description: (
+  //     <>
+  //       The ETEN Innovation Lab is conducting R&D in the field of Bible
+  //       Translation
+  //     </>
+  //   ),
+  // },
+  // {
+  //   title: "Innovative Solutions",
+  //   Svg: require("@site/static/img/undraw_docusaurus_tree.svg").default,
+  //   description: (
+  //     <>
+  //       ETEN Innovation labs is coming up with innovation solutions to
+  //       challenging problems faced by Bible translation organizations.
+  //     </>
+  //   ),
+  // },
+  // {
+  //   title: "Latest Tech Stack",
+  //   Svg: require("@site/static/img/undraw_docusaurus_react.svg").default,
+  //   description: (
+  //     <>
+  //       ETEN Innovation labs is using the latest tech stack to build the next
+  //       generation of Bible Translation tools.
+  //     </>
+  //   ),
+  // },
 ];
 
 function Feature({ title, Svg, description }: FeatureItem) {
