@@ -26,7 +26,7 @@
 | frontend | developer | development url | production url |
 | :--- | :----: | :--- | :--- |
 | admin | Aslam | [admin.dev.lab.eten.bible](https://admin.dev.lab.eten.bible) | |
-| keycloak | Aslam | [sso.dev.lab.eten.bible](https://sso.dev.lab.eten.bible) | |
+| keycloak | Aslam | [sso.dev.lab.eten.bible](https://keycloak.dev.lab.eten.bible) | |
 | crowd.Bible | Hiroshi | [dev.crowd.bible](https://dev.crowd.bible) | |
 | openlanguages.io | Aslam | [oldb.dev.lab.eten.bible](https://oldb.dev.lab.eten.bible) | [openlanguages.io](https://openlanguages.io) |
 | Graph App | Lev | [graph.dev.lab.eten.bible](https://graph.dev.lab.eten.bible) | |
