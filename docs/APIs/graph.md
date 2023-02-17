@@ -34,4 +34,4 @@ $ npm run test:cov
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+This code base is [MIT licensed](https://opensource.org/license/mit/).
