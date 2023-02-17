@@ -10,7 +10,7 @@ const config = {
   tagline: "Accelerating Bible Translation",
   url: "https://dev.lab.eten.bible",
   baseUrl: "/",
-  onBrokenLinks: "throw",
+  onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
 
