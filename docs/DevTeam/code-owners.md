@@ -21,15 +21,13 @@
 | site-text-api | Daniel | | |
 | voting-api | Daniel | | |
 
-## Applications
+## Components
 
-| frontend | developer | development url | production url |
-| :--- | :----: | :---: | :---: |
-| admin | Aslam | | |
-| keycloak | Aslam | | |
-| crowd.Bible | Hiroshi | [dev.crowd.bible](https://dev.crowd.bible) | |
-| openlanguages.io | Aslam | | [openlanguages.io](https://openlanguages.io) |
-| Graph App | Lev | | |
+|   component    | developer | link                                                          |
+| :------------: | :-------: | ------------------------------------------------------------- |
+|   data-table   |  Alexey   | [npm](https://www.npmjs.com/package/@eten-lab/data-table)     |
+| discussion-box |  Hiroshi  | [npm](https://www.npmjs.com/package/@eten-lab/discussion-box) |
+|     voting     |  Daniel   | [npm](https://www.npmjs.com/package/@eten-lab/voting)         |
 
 ## Development Support
 | service | developer |
