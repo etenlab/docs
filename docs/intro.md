@@ -9,6 +9,8 @@ The ETEN Innovation Lab is developing APIs and components to help others build B
 
 ## Links
 
-| Server | Description | Development | Production |
+| Site | Description | Development | Production |
 | - | - | - | - |
 | Storybook | Showcase available components | [Development](https://storybook.dev.lab.eten.bible/) | coming soon |
+| Project Board | Show dev teams's tasks and status | | [link](https://github.com/orgs/etenlab/projects/1/views/1) | 
+| Figma | Our current wireframes and designs | | [link](https://www.figma.com/file/md8nAIVfMUNxGhkofGhP6c/Wireframes?node-id=895%3A1130&t=3VzuC039od5myQnf-1) |
