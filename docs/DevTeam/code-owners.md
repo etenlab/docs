@@ -33,7 +33,7 @@
 
 ## Development Support
 | service | developer |
-| :--- | :--- |
+| :--- | :---: |
 | AWS | Alexey | 
 | AWS CDK | Roks |
 | GitHub Actions | Alexey |
