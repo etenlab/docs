@@ -8,11 +8,12 @@ sidebar_position: 2
 - Package Manager:   
 - Linter:
 - Formatter: 
-- Server framework: `nestjs`
+- Server framework: `nestjs` (typescript)
 - API paradigm: `graphql`
 - Server graphQL library: `apollo`
 - Client graphQL driver: `apollo`
-- Frontend framework: `ionic-react`
+- Frontend framework: `ionic-react` (typescript)
+- UI component library: `ionic`
 - Branching strategy:   
   - `prod` branch for AWS `prod` env
   - `dev` branch for AWS `dev` env

@@ -37,3 +37,4 @@
 | AWS | Alexey | 
 | AWS CDK | Roks |
 | GitHub Actions | Alexey |
+| Docs | Michael |
