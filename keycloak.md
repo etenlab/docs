@@ -27,7 +27,7 @@ Home URL: http://localhost:3000
 Valid redirect URIs: http://localhost:3000/*
 Valid post logout redirect URIs: http://localhost:3000/*
 Web origins: http://localhost:3000 (this is required for CORS)
-
+Client authentication: Off
 ```
 
 then save the page.
