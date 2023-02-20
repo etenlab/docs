@@ -10,7 +10,10 @@ sidebar_position: 2
 - Formatter: `Prettier` ([Config](./config/prettier_config.md))
 - Server framework: `nestjs`
 - API paradigm: `graphql`
+- Rest api docs (if available): `/api`
+- Rest root path (`/`): HTTP 200, `{"version":"x.y.z","name":"service-name"}`
 - Server graphQL library: `apollo`
+- GraphQL endpoint: `/graphql`
 - Client graphQL driver: `apollo`
 - Frontend framework: `ionic-react`
 - Branching strategy:
