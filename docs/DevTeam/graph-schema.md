@@ -13,6 +13,7 @@ Database [schema](https://github.com/etenlab/database-api/blob/main/src/core/sql
 1. `relationship_property_values`
 
 ## Legend
+
 ![Graph Legend](./img/legend.png)
 
 ## Word
@@ -39,7 +40,7 @@ Database [schema](https://github.com/etenlab/database-api/blob/main/src/core/sql
 
 ![book](./img/book.png)
 
-## Bible 
+## Bible
 
 ![bible](./img/bible.png)
 
@@ -55,11 +56,11 @@ Database [schema](https://github.com/etenlab/database-api/blob/main/src/core/sql
 
 ![paragraph](./img/paragraph.png)
 
-## Section 
+## Section
 
 ![section](./img/section.png)
 
-## Section of Sections 
+## Section of Sections
 
 ![section-of-sections](./img/section-of-sections.png)
 
@@ -78,4 +79,3 @@ Database [schema](https://github.com/etenlab/database-api/blob/main/src/core/sql
 ## Voting
 
 ![voting](./img/voting.png)
-

@@ -1,2 +1,1 @@
 # Scripture API
-
