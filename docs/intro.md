@@ -23,7 +23,7 @@ Use thse links to learn the schema for our APIs
 | - | - | :-: | :-: |
 | Admin API | Admins Only. Used to grant permissions to users. | [dev](https://admin-api.dev.lab.eten.bible/graphql) | |
 | Aggregation API | Wraps all non-subscription GraphQL endpoints into a single endpoint for convenience. | [dev](https://aggregation-api.dev.lab.eten.bible/graphql) | |
-| Authentication API | Used to wrap our SSO service. User authentication and logout. | [dev](https://keycloak.dev.lab.eten.bible/graphql) | |
+| Authentication API | Our Keyclaok server. Used for our SSO service. | [dev](https://keycloak.dev.lab.eten.bible/graphql) | |
 | Data Load API | Mostly used by the dev team to load data. | [dev](https://data-load-api.dev.lab.eten.bible/graphql) | |
 | Database API | Used to bootstrap the database with schema and initial data. | [dev](https://db-api.dev.lab.eten.bible/graphql) | |
 | Discussion API | Add discussion to anything. Use this to create posts and read responses. | [dev](https://discussion-api.dev.lab.eten.bible/graphql) | |
