@@ -5,7 +5,7 @@ sidebar_position: 2
 # Development Conventions
 
 - Node Version: `16`
-- Package Manager: `8.19.3`
+- Package Manager: `npm 8`
 - Linter: `Eslint` ([Config](./config/eslint_config.md))
 - Formatter: `Prettier` ([Config](./config/prettier_config.md))
 - Server framework: `nestjs`
