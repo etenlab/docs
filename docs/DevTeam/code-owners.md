@@ -21,7 +21,7 @@
 | site-text-api | Daniel | [site-text-api.dev.lab.eten.bible](https://site-text-api.dev.lab.eten.bible) | |
 | voting-api | Daniel | [voting-api.dev.lab.eten.bible](https://voting-api.dev.lab.eten.bible) | |
 
-## Applications
+## Components
 
 | frontend | developer | development url | production url |
 | :--- | :----: | :--- | :--- |
