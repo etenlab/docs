@@ -8,8 +8,8 @@ sidebar_position: 2
 
 - Node Version: `16`
 - Package Manager: `npm 8`
-- Linter: `Eslint` ([Config](./config/eslint_config.md))
-- Formatter: `Prettier` ([Config](./config/prettier_config.md))
+- Linter: `Eslint` (see below)
+- Formatter: `Prettier` (see below)
 - Server framework: `nestjs`
 - API paradigm: `graphql`
 - Rest api docs (if available): `/api`
