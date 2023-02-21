@@ -22,6 +22,10 @@ sidebar_position: 2
   - `prod` branch for AWS `prod` env
   - `dev` branch for AWS `dev` env
   - `[feature-name]` feature branches for work in progress
+- Deployment Targets:
+  - Phase 1: Modern browsers
+  - Phase 2: Android devices
+  - Phase 3: Electron devices
 
 ## Eslint Config
 
