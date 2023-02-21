@@ -10,6 +10,7 @@ sidebar_position: 2
 - Package Manager: `npm 8`
 - Linter: `Eslint` (see below)
 - Formatter: `Prettier` (see below)
+- Environment variables: every service should contain `.env.example` (even if empty) to is clear what env vars it requires to be set
 - Server framework: `nestjs`
 - API paradigm: `graphql`
 - Rest api docs (if available): `/api`
