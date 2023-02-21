@@ -10,78 +10,124 @@ For example, you could have a document that you want everyone to be able to edit
 
 Database [schema](https://github.com/etenlab/database-api/blob/main/src/core/sql/schema/v1.schema.sql)
 
-1. `node_types`
-1. `node_property_keys`
-1. `node_property_values`
-1. `relationship_types`
-1. `relationships`
-1. `relationship_property_keys`
-1. `relationship_property_values`
+- `node_types`
+- `node_property_keys`
+- `node_property_values`
+- `relationship_types`
+- `relationships`
+- `relationship_property_keys`
+- `relationship_property_values`
 
-## Legend
+## Graph API Layer 1
+
+Layer 1 is the only layer that interacts with the type models.
+
+### Node Type
+- createNodeType(type_name: string): string
+- listNodeTypes(): String[]
+- listAllNodesByType(type_name: string): Node[]
+
+### Nodes
+- listAllNodesByType(type_name: string): Node[]
+- createNode(type_name: string): uuid
+- createNodePropertyKey(node_id: uuid, key_name: string): uuid
+- createNodePropertyValue(key_id: uuid, key_value: any): uuid
+- readNode(node_id: uuid) Node
+
+### Relationship Type
+- createRelationshipType(type_name: string): uuid
+- listRelationshipsTypes(): String[]
+- listAllRelationshipsByType(type_name: string): Relationships[]
+
+### Relationships
+- createRelationship(node_1: uuid, node_2: uuid, type_name: string): uuid
+- createRelationshipPropertyKey(rel_id: uuid, key_name: string): uuid
+- createRelationshipPropertyValue(key_id: uuid, property_value: any): uuid
+- readRelationship(rel_id: uuid): Relationship
+- listRelatedNodes(node_id: uuid): [{relationship, node}]
+
+### Elections
+- createElection():uuid
+- addBallotEntry(election_id: uuid, node_id: uuid): uuid
+- addVote(ballot_entry_id: uuid, vote: boolean): uuid
+- addVote(ballot_entry_id: uuid): boolean
+- readElection(election_id: uuid): Election
+
+### Discussion
+- createDiscussion(): uuid
+- createPost(discussion_id: uuid, content: string): uuid
+- updatePost(post_id: uuid): boolean
+- deletePost(post_id: uuid): boolean
+- readDiscussion(discussion_id: uuid): Discussion
+
+## Graph API Layer 2
+
+Layer 2 only calls layer 1 functions.
+
+### Legend
 
 ![Graph Legend](./img/legend.png)
 
-## Word
+### Word
 
 ![word](./img/word.png)
 
-## Word Sequence
+### Word Sequence
 
 ![word-sequence](./img/word-sequence.png)
 
-## Word to Article Link
+### Word to Article Link
 
 ![word-to-article-link](./img/word-to-article-link.png)
 
-## Verse
+### Verse
 
 ![verse](./img/verse.png)
 
-## Chapter
+### Chapter
 
 ![chapter](./img/chapter.png)
 
-## Book
+### Book
 
 ![book](./img/book.png)
 
-## Bible
+### Bible
 
 ![bible](./img/bible.png)
 
-## Sentence
+### Sentence
 
 ![sentence](./img/sentence.png)
 
-## Article
+### Article
 
 ![article](./img/article.png)
 
-## Paragraph
+### Paragraph
 
 ![paragraph](./img/paragraph.png)
 
-## Section
+### Section
 
 ![section](./img/section.png)
 
-## Section of Sections
+### Section of Sections
 
 ![section-of-sections](./img/section-of-sections.png)
 
-## Strong's Entry
+### Strong's Entry
 
 ![strongs-entry](./img/strongs-entry.png)
 
-## Strong's Word Link
+### Strong's Word Link
 
 ![strongs-word-link](./img/strongs-word-link.png)
 
-## External Content
+### External Content
 
 ![external-content](./img/external-content.png)
 
-## Voting
+### Voting
 
 ![voting](./img/voting.png)
