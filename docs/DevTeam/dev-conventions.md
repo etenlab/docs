@@ -4,6 +4,8 @@ sidebar_position: 2
 
 # Development Conventions
 
+## Stack, Tools, Strategy
+
 - Node Version: `16`
 - Package Manager: `npm 8`
 - Linter: `Eslint` ([Config](./config/eslint_config.md))
@@ -20,3 +22,59 @@ sidebar_position: 2
   - `prod` branch for AWS `prod` env
   - `dev` branch for AWS `dev` env
   - `[feature-name]` feature branches for work in progress
+
+## Eslint Config
+
+File name: `.eslintrc.js`
+
+File content (may be a subject of changes):
+
+```
+module.exports = {
+    parser: '@typescript-eslint/parser',
+    parserOptions: {
+        project: 'tsconfig.json',
+        tsconfigRootDir: __dirname,
+        sourceType: 'module',
+    },
+    plugins: ['@typescript-eslint/eslint-plugin'],
+    extends: [
+        'plugin:@typescript-eslint/recommended',
+        'plugin:prettier/recommended',
+    ],
+    root: true,
+    env: {
+        node: true,
+        jest: true,
+    },
+    ignorePatterns: ['.eslintrc.js'],
+    rules: {
+        // '@typescript-eslint/interface-name-prefix': 'off',
+        // '@typescript-eslint/explicit-function-return-type': 'off',
+        // '@typescript-eslint/explicit-module-boundary-types': 'off',
+        // '@typescript-eslint/no-explicit-any': 'off',
+        "semi": 2,
+        // "@typescript-eslint/semi": ["error"],
+        'prettier/prettier': [
+            'error',
+            {
+                singleQuote: true,
+                trailingComma: 'all',
+            }
+        ],
+    },
+};
+```
+
+## Prettier Config
+
+File name: `.prettierrc`
+
+File content:
+
+```
+{
+  "singleQuote": true,
+  "trailingComma": "all"
+}
+```
