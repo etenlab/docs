@@ -64,6 +64,26 @@ Layer 1 is the only layer that interacts with the type models.
 
 Layer 2 only calls layer 1 functions.
 
+### Create
+
+- createNodeObject(node_uuid: uuid, obj: {}): Node
+- createRelationshipObject(rel_uuid: uuid, obj: {}): Relationship
+- createRelatedObject(node_uuid: uuid, rel_type_name: string, obj: {}): Node
+
+### Upsert
+
+These operations are idempotent and will first search for a key before inserting.
+In each case the user passes a uuid of a node/rel to start with. 
+They don't create a new node/rel.
+
+- upsertNodeObject(node_uuid: uuid, obj: {}): Node
+- upsertRelationshipObject(rel_uuid: uuid, obj: {}): Relationship
+- upsertRelatedObject(node_uuid: uuid, rel_type_name: string, obj: {}): Node
+
+## Graph API Layer 3
+
+Layer 3 only calls layer 2 functions.
+
 ### Legend
 
 ![Graph Legend](./img/legend.png)
