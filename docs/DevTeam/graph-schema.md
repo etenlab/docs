@@ -66,9 +66,9 @@ Layer 2 only calls layer 1 functions.
 
 ### Create
 
-- createNodeObject(node_uuid: uuid, obj: {}): Node
-- createRelationshipObject(rel_uuid: uuid, obj: {}): Relationship
-- createRelatedObject(node_uuid: uuid, rel_type_name: string, obj: {}): Node
+- createNodeObject(obj: {}): uuid
+- createRelationshipObject(obj: {}): uuid
+- createRelatedObject(node_uuid: uuid, rel_type_name: string, obj: {}): uuid
 
 ### Upsert
 
