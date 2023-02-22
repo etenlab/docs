@@ -44,7 +44,7 @@ Layer 1 is the only layer that interacts with the type models.
 - createRelationshipPropertyKey(rel_id: uuid, key_name: string): uuid
 - createRelationshipPropertyValue(key_id: uuid, property_value: any): uuid
 - readRelationship(rel_id: uuid): Relationship
-- listRelatedNodes(node_id: uuid): [{relationship, node}]
+- listRelatedNodes(node_id: uuid): Array<{relationship: [Relationship Object], node: [Node Object]}>
 
 ### Elections
 - createElection():uuid
