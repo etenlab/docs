@@ -66,9 +66,9 @@ Layer 2 only calls layer 1 functions.
 
 ### Create
 
-- createNodeObject(obj: {}): uuid
-- createRelationshipObject(obj: {}): uuid
-- createRelatedObject(node_uuid: uuid, rel_type_name: string, obj: {}): uuid
+- createNodeFromObject(type_name: string, obj: {}): Node
+- createRelationshipFromObject(type_name: string, obj: {}): Relationship
+- createRelatedNodeFromObject(node_uuid: uuid, rel_type_name: string, obj: {}): {relationship: [Relationship Object], node: [Node Object]}
 
 ### Upsert
 
@@ -78,7 +78,7 @@ They don't create a new node/rel.
 
 - upsertNodeObject(node_uuid: uuid, obj: {}): Node
 - upsertRelationshipObject(rel_uuid: uuid, obj: {}): Relationship
-- upsertRelatedObject(node_uuid: uuid, rel_type_name: string, obj: {}): Node
+- upsertRelatedObject(node_uuid: uuid, rel_type_name: string, obj: {}): {relationship: [Relationship Object], node: [Node Object]}
 
 ## Graph API Layer 3
 
