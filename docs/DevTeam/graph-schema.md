@@ -88,6 +88,13 @@ Layer 3 only calls layer 2 functions.
 
 ![Graph Legend](./img/legend.png)
 
+### Table Data
+
+![Table Data](./img/table-data.png)
+
+- createTable(name: string): Table
+- addTableData(table_name: string, column_name: string, row_id: string, cell_data: any): Cell
+
 ### Word
 
 ![word](./img/word.png)
