@@ -8,17 +8,18 @@ sidebar_position: 2
 
 - Node Version: `16`
 - Package Manager: `npm 8`
-- Linter: `Eslint` (see below)
+- Linter: [Eslint](https://eslint.org/) (see below)
 - Formatter: `Prettier` (see below)
 - Environment variables: every service should contain `.env.example` (even if empty) to is clear what env vars it requires to be set
-- Server framework: `nestjs`
-- API paradigm: `graphql`
+- Server framework: [nestjs](https://nestjs.com/)
+- API paradigm: [graphql](https://graphql.org/)
 - Rest api docs (if available): `/api`
 - Rest root path (`/`): HTTP 200, `{"version":"x.y.z","name":"service-name"}`
-- Server graphQL library: `apollo`
+- Server graphQL library: [apollo server](https://www.apollographql.com/docs/apollo-server/)
 - GraphQL endpoint: `/graphql`
-- Client graphQL driver: `apollo`
-- Frontend framework: `ionic-react`
+- Client graphQL driver: [apollo client](https://www.apollographql.com/docs/react/)
+- Frontend framework: [ionic-react](https://ionicframework.com/docs/react)
+- UI Components: [mui](https://mui.com/) or [ionic](https://ionicframework.com/docs/components)
 - Branching strategy:
   - `prod` branch for AWS `prod` env
   - `dev` branch for AWS `dev` env

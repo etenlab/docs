@@ -64,17 +64,17 @@ Layer 1 is the only layer that interacts with the type models.
 
 Layer 2 only calls layer 1 functions.
 
-### Create
+### Node/Relationship CREATE Convenience Wrappers
+
+These functions will always create a new node or relationship. The root keys of the object will be used as the unique keys of the new node/relationship. The values of those keys will be the child value/object of the root keys passed in.
 
 - createNodeFromObject(type_name: string, obj: {}): Node
-- createRelationshipFromObject(type_name: string, obj: {}): Relationship
+- createRelationshipFromObject(type_name: string, obj: {}, from_node: uuid, to_node: uuid): Relationship
 - createRelatedNodeFromObject(node_uuid: uuid, rel_type_name: string, obj: {}): {relationship: [Relationship Object], node: [Node Object]}
 
-### Upsert
+### Upsert Node/Relationship Convenience Wrappers
 
-These operations are idempotent and will first search for a key before inserting.
-In each case the user passes a uuid of a node/rel to start with. 
-They don't create a new node/rel.
+These operations use a previously created node/relationship and are idempotent with key creation. They will first search for a key before inserting.
 
 - upsertNodeObject(node_uuid: uuid, obj: {}): Node
 - upsertRelationshipObject(rel_uuid: uuid, obj: {}): Relationship
