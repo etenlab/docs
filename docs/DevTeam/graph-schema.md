@@ -70,7 +70,8 @@ These functions will always create a new node or relationship. The root keys of 
 
 - createNodeFromObject(type_name: string, obj: {}): Node
 - createRelationshipFromObject(type_name: string, obj: {}, from_node: uuid, to_node: uuid): Relationship
-- createRelatedNodeFromObject(node_uuid: uuid, rel_type_name: string, obj: {}): {relationship: [Relationship Object], node: [Node Object]}
+- createRelatedToNodeFromObject(node_uuid: uuid, rel_type_name: string, type_name: string, obj: {}): {relationship: [Relationship Object], node: [Node Object]}
+- createRelatedFromNodeFromObject(type_name: string, obj: {}, rel_type_name: string, node_uuid: uuid): {relationship: [Relationship Object], node: [Node Object]}
 
 ### Upsert Node/Relationship Convenience Wrappers
 
@@ -78,7 +79,6 @@ These operations use a previously created node/relationship and are idempotent w
 
 - upsertNodeObject(node_uuid: uuid, obj: {}): Node
 - upsertRelationshipObject(rel_uuid: uuid, obj: {}): Relationship
-- upsertRelatedObject(node_uuid: uuid, rel_type_name: string, obj: {}): {relationship: [Relationship Object], node: [Node Object]}
 
 ## Graph API Layer 3
 
