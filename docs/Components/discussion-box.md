@@ -106,3 +106,17 @@ function App() {
 export default App;
 
 ```
+
+## Note
+
+If you want to contribute to this component, you can find `eil-discussion-box` repository in the `etenlab` account.
+
+This component works together `discussion-api`, `discussion-subscription-api`, and `file-api`.
+
+### Build
+
+`npm run build`
+
+### Running example
+
+`npm run start:example`
