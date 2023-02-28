@@ -14,6 +14,7 @@ The project consists of several CloudFormation stacks:
 ## First-time deployment
 
 1. Configured your AWS CLI with correct credentials. See [AWS CLI Configuration basics](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html) for reference.
+   - Install AWS CDK Toolkit (cdk command). See (https://docs.aws.amazon.com/cdk/v2/guide/cli.html) for refetence.
 2. Bootstrap CDK project in your AWS account if you have not done so already. See [CDK Bootstrapping docs](https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping.html) for reference.
 3. Install project dependencies: `npm ci`.
 4. Check environment configuration in `./config/dev.yaml` for development environment. Use `./config/prod.yaml` for production.
