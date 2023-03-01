@@ -96,6 +96,10 @@ Layer 3 only calls layer 2 functions.
 - addTableData(table_name: string, column_name: string, row_id: string, cell_data: any): Cell
 - getTable(name: string): Table
 
+### Key Terms
+
+![Key Terms](./img/key-terms.png)
+
 ### Word
 
 ![word](./img/word.png)
