@@ -40,7 +40,7 @@ export type DiscussionPureProps = {
   rowId: number;
   appId: number; // appId should be a valid id exists in app_list table.
   orgId: number; // orgId should be a valid id exists in organizations table.
-  style?: CSSProperties | undefined;
+  height: sring; // ex: '100%', '500px', '100vh' ...
 };
 ```
 
@@ -60,11 +60,7 @@ function App() {
       userId={100}
       orgId={1}
       appId={1}
-      style={{
-        height: 'calc(100vh - 42px)',
-        padding: '20px',
-        border: '1px solid #000',
-      }}
+      height="100vh"
     />
   );
 }
@@ -85,7 +81,7 @@ type DiscussionForDevProps = {
   userEmail: string;
   orgName?: string;
   appName?: string;
-  style?: CSSProperties;
+  height: string;
 };
 ```
 
@@ -105,11 +101,7 @@ function App() {
           userEmail={email}
           appName="dev app"
           orgName="dev org
-          style={{
-            height: 'calc(100vh - 42px)',
-            padding: '20px',
-            border: '1px solid #000',
-          }}
+          height="calc(100vh-50px)"
         />
   );
 }

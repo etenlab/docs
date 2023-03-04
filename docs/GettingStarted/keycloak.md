@@ -10,6 +10,7 @@ Password: admin
 ```
 
 3. Click on the Master dropdown and the click on Create Realm to Create a new Realm for our app, can name it Showcase, just need to enter the Realm name can keep other fields as it is.
+Note: check if .env variable KEYCLOAK_REALM at database-api corresponds to entered realm name (i.e. 'Showcase', in this particular example)
 
 4. Go to the Realm Settings page, in General tab can enter displayname and frontend url (http://localhost:3000)
 
@@ -19,7 +20,12 @@ Password: admin
 
 7. Go to Clients Page in left side menu to create new client for our application. enter showcase-auth as Client ID and click on Next button and in Capability config enable Client authentication and Authorization and click on Save
 
-8. in clients settings page, enter the values as below
+8. Go to Clients Page in left side menu, choose created client (showcase-auth), go to 'Credentians' tab, check that 'Client Authenticator' is 'Client Id and Secret', reveal and copy Client secret. Use this secret in .env variable KEYCLOAK_CLIENTS at database-api.
+For example 
+```
+KEYCLOAK_CLIENTS=showcase:abcabc,storybook:edfedf,showcase-auth:gJ1ynKzVynB0QgNWldmLianr2UyjTPkZ
+```
+9. in clients settings page, enter the values as below
 
 ```
 Root URL: http://localhost:3000

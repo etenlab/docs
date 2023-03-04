@@ -55,11 +55,16 @@ rootDomainCertArn: 'arn:aws:acm:us-east-2:579742570368:certificate/000000000'
 - `cdk diff` compare deployed stack with current state
 - `cdk synth` emits the synthesized CloudFormation template
 - `cdk context --clear` clear values stored in local `cdk.context.json`. Useful if deployment fails with "resource not found" kind of error.
-
+- `aws s3 sync <YOUR_BUILD_FOLDER> <YOUR_S3_STACK>` (example `aws s3 sync build/ s3://devlearnshowcaseappstack-cbdevwebsitebucketc58c99-p6p2vkvq5olx`) - manual sync your build with bucket (useful  for learninig)
+- `aws cloudfront create-invalidation --distribution-id <DISTRIBUTION_ID> --paths "/*"` (example `aws cloudfront create-invalidation --distribution-id E1VYHF5KNCJCK0 --paths "/*"`) - invalidate cloudfront cache (useful for fronted deployment if automatic invalidation isn't provided by github actions)
 ## How to add new API stack
 
 1. Add API configuration into `./config/dev.yaml`. See `databaseApi` config for example.
 2. Deploy API using `cdk deploy -c env=dev dev<NEW_API_STACK_NAME>`
+
+Note: aws service will be named as serviceName+'Service'. I.e. if serviceName is 'scriptureApi', aws service name will be created as 'scriptureApiService'. You will use it in github actions config.
+
+Note: wen you run `cdk deploy -c env=dev dev<NEW_API_STACK_NAME>` , deployment process could hang up and wait for the docker container (if relevant docker container is absent at dockerhub). You can set up relevant git hub action at repository and build the container, then aws deployment process will be continued.
 
 ## How to add new Frontend stack
 
