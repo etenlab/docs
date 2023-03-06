@@ -106,6 +106,17 @@ Layer 3 only calls layer 2 functions.
 
 ![Key Terms](./img/key-terms.png)
 
+### Document
+
+![Document](./img/document.png)
+
+- createDocument(name: string): uuid
+  - `name`: the name of the document you want to create
+  - returns the uuid of the `document` node
+- getDocument(name: string): uuid
+  - `name`: the name of the doucment you want to find
+  - returns the uuid of the `document` node if there is one, `null` if not found.
+
 ### Word
 
 ![word](./img/word.png)
@@ -114,9 +125,18 @@ Layer 3 only calls layer 2 functions.
 
 ![word-sequence](./img/word-sequence.png)
 
+- createWordSequence(text: string, document: string, importer: string, import-uid: string): uuid
+  - `text`: the word sequence to store in the graph
+  
+  - takes a string and will split it using whitespace and not punctuation.
+  - tokens created from the string will be used to create the word nodes
+  - will return the node uuid from the `node-sequence` node created
+
 ### Word Sequence Connection
 
 ![word-sequence-connection](./img/word-sequence-connection.png)
+
+- appendWordSequence()
 
 ### Voting
 
