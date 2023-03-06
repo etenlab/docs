@@ -1,5 +1,3 @@
-import GitHubLogo from './assets/github_logo.jpg';
-
 # Graph Schema
 
 ## Introduction
