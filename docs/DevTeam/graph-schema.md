@@ -1,3 +1,5 @@
+import GitHubLogo from './assets/github_logo.jpg';
+
 # Graph Schema
 
 ## Introduction
@@ -21,7 +23,7 @@ Database [schema](https://github.com/etenlab/database-api/blob/main/src/core/sql
 
 ### Legend for Illustrations
 
-<img src='./img/legend.png' width="700"/>
+<img src='img/legend.png' width="700"/>
 
 - Nodes are represented by orange boxes and are the root unit of how we store information in the graph. 
 - Every node has a type name stored as a string.
@@ -97,7 +99,7 @@ These operations use a previously created node/relationship and are idempotent w
 
 ### Table Data
 
-<img src='./img/table-data.png' width="700"/>
+<img src='img/table-data.png' width="700"/>
 
 - createTable(name: string): Table
 - addTableData(table_name: string, column_name: string, row_id: string, cell_data: any): Cell
@@ -105,11 +107,11 @@ These operations use a previously created node/relationship and are idempotent w
 
 ### Key Terms
 
-<img src='./img/key-terms.png' width="900"/>
+<img src='img/key-terms.png' width="900"/>
 
 ### Document
 
-<img src='./img/document.png' width="500"/>
+<img src='img/document.png' width="500"/>
 
 - createDocument(name: string): uuid
   - `name`: the name of the document you want to create
@@ -120,7 +122,7 @@ These operations use a previously created node/relationship and are idempotent w
 
 ### Word
 
-<img src='./img/word.png' width="400"/>
+<img src='img/word.png' width="400"/>
 
 - createWord(word: string): uuid
   - `word`: the word. There shouldn't be any spaces. In the current system we define words by splitting on white space.
@@ -131,7 +133,7 @@ These operations use a previously created node/relationship and are idempotent w
 
 ### Word Sequence
 
-<img src='./img/word-sequence.png' width="00"/>
+<img src='img/word-sequence.png' width="00"/>
 
 - createWordSequence(text: string, document: uuid, creator: uuid, import-uid: string): uuid
   - `text`: the word sequence to store in the graph. The function will split it using whitespace and not punctuation. Tokens created from the string will be used to create the word nodes
@@ -143,7 +145,7 @@ These operations use a previously created node/relationship and are idempotent w
 
 ### Word Sequence Connection
 
-<img src='./img/word-sequence-connection.png' width="300"/>
+<img src='img/word-sequence-connection.png' width="300"/>
 
 - appendWordSequence(from: uuid, to: uuid): uuid
   - `from`: uuid of the `word-sequence` node that should be first in the sequence.
@@ -156,5 +158,5 @@ These operations use a previously created node/relationship and are idempotent w
 
 ### Voting
 
-<img src='./img/voting.png' width="600"/>
+<img src='img/voting.png' width="600"/>
 
