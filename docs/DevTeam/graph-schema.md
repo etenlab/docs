@@ -121,22 +121,37 @@ Layer 3 only calls layer 2 functions.
 
 ![word](./img/word.png)
 
+- createWord(word: string): uuid
+  - `word`: the word. There shouldn't be any spaces. In the current system we define words by splitting on white space.
+  - Returns the uuid of the word created. If a word already exists, it will return the uuid of the previously created word.
+- getWord(word: string): uuid
+  - `word`: the word you want to find.
+  - Returns the uuid of the `word` node. `null` if no word is found.
+
 ### Word Sequence
 
 ![word-sequence](./img/word-sequence.png)
 
-- createWordSequence(text: string, document: string, importer: string, import-uid: string): uuid
-  - `text`: the word sequence to store in the graph
-  
-  - takes a string and will split it using whitespace and not punctuation.
-  - tokens created from the string will be used to create the word nodes
-  - will return the node uuid from the `node-sequence` node created
+- createWordSequence(text: string, document: uuid, creator: uuid, import-uid: string): uuid
+  - `text`: the word sequence to store in the graph. The function will split it using whitespace and not punctuation. Tokens created from the string will be used to create the word nodes
+  - `document`: the documnet node uuid that the new `word-sequence` node will be associated to.
+  - `creator`: the `user` node uuid that the new `word-sequence` node will be associated to. This is not the owner of the text (if any), this is the user account who imported/created it in the system.
+  - `import-uid`: this is a free field for the importer/creator to use to distinguish different imports or versions. This will can be used later in read queries to show different import runs.
+  - Returns the node uuid from the `word-sequence` node created.
+  - This function will always create a new `word-sequence`.
 
 ### Word Sequence Connection
 
 ![word-sequence-connection](./img/word-sequence-connection.png)
 
-- appendWordSequence()
+- appendWordSequence(from: uuid, to: uuid): uuid
+  - `from`: uuid of the `word-sequence` node that should be first in the sequence.
+  - `to`: uuid of the `word-sequence` node that should come second in the sequence.
+  - Returns the uuid of the relationship node that is created.
+  - This is how we will store documents in our system. Documents are series of `word-sequence` nodes.
+- getWordSequence(text: string): uuid[]
+  - `text` string of words to find in the database
+  - Returns an array of `word-sequence` node uuids if there are any that match the `text` given. `null` if no uuids where found.
 
 ### Voting
 
