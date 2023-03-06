@@ -11,6 +11,7 @@ For example, you could have a document that you want everyone to be able to edit
 Database [schema](https://github.com/etenlab/database-api/blob/main/src/core/sql/schema/v1.schema.sql)
 
 - `node_types`
+- `nodes`
 - `node_property_keys`
 - `node_property_values`
 - `relationship_types`
@@ -18,9 +19,21 @@ Database [schema](https://github.com/etenlab/database-api/blob/main/src/core/sql
 - `relationship_property_keys`
 - `relationship_property_values`
 
-## Graph API Layer 1
+### Legend for Illustrations
 
-Layer 1 is the only layer that interacts with the type models.
+![Graph Legend](./img/legend.png)
+
+- Nodes are represented by orange boxes and are the root unit of how we store information in the graph. 
+- Every node has a type name stored as a string.
+- Relationships (rel) connect two nodes.
+- Every rel has a type name stored as a string.
+- Both nodes and relationships can have properties.
+- Properties are split into keys and values.
+- Property keys point to a node or rel. 
+- Property values point to a property key.
+- The decoupling of property keys and values allows us to expose options to users so that they can vote on whether a key is appropriate or not on a node/rel, as well as voting on what the value should be for each property key. This is one important way in which we enable crowd-sourcing.
+
+## API
 
 ### Node Type
 
@@ -66,10 +79,6 @@ Layer 1 is the only layer that interacts with the type models.
 - deletePost(post_id: uuid): boolean
 - readDiscussion(discussion_id: uuid): Discussion
 
-## Graph API Layer 2
-
-Layer 2 only calls layer 1 functions.
-
 ### Node/Relationship CREATE Convenience Wrappers
 
 These functions will always create a new node or relationship. The root keys of the object will be used as the unique keys of the new node/relationship. The values of those keys will be the child value/object of the root keys passed in.
@@ -85,14 +94,6 @@ These operations use a previously created node/relationship and are idempotent w
 
 - upsertNodeObject(node_uuid: uuid, obj: {}): Node
 - upsertRelationshipObject(rel_uuid: uuid, obj: {}): Relationship
-
-## Graph API Layer 3
-
-Layer 3 only calls layer 2 functions.
-
-### Legend
-
-![Graph Legend](./img/legend.png)
 
 ### Table Data
 
