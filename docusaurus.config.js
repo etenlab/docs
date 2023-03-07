@@ -31,6 +31,12 @@ const config = {
 
   presets: [
     [
+      '@docusaurus/preset-classic',
+      {
+        theme: {
+          customCss: [require.resolve('./src/css/custom.css')],
+        },
+      },
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
