@@ -131,7 +131,7 @@ These operations use a previously created node/relationship and are idempotent w
 
 ### Word Sequence
 
-![word-sequence](./img/word-sequence.png)
+<img src="./img/word-sequence.png" width="100%" style="height: auto;" />
 
 - createWordSequence(text: string, document: uuid, creator: uuid, import-uid: string): uuid
   - `text`: the word sequence to store in the graph. The function will split it using whitespace and not punctuation. Tokens created from the string will be used to create the word nodes
