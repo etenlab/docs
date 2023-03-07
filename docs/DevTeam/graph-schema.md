@@ -131,6 +131,12 @@ These operations use a previously created node/relationship and are idempotent w
 
 ### Word Sequence
 
+<div style="width: 100%; height: auto">
+  
+  ![word-sequence](./img/word-sequence.png)
+  
+</div>
+
 ![word-sequence](./img/word-sequence.png)
 
 - createWordSequence(text: string, document: uuid, creator: uuid, import-uid: string): uuid
