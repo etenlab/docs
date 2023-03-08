@@ -129,7 +129,7 @@ These operations use a previously created node/relationship and are idempotent w
   - `word`: the word you want to find.
   - Returns the uuid of the `word` node. `null` if no word is found.
 
-### Word Sequence (test)
+### Word Sequence
 
 ![word-sequence](./img/word-sequence.png)
 
