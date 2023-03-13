@@ -106,6 +106,9 @@ These operations use a previously created node/relationship and are idempotent w
 - createTable(name: string): Table
 - addTableData(table_name: string, column_name: string, row: uuid, cell_data: {}): Cell
 - getTable(name: string): Table
+- addColumn(table: uuid, column_name: string): uuid
+- addRow(table: uuid, column: uuid): uuid
+- addCell(column: uuid, row: uuid, value: {}): uuid
 
 ### Key Terms
 
