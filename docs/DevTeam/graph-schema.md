@@ -33,7 +33,7 @@ Database [schema](https://github.com/etenlab/database-api/blob/main/src/core/sql
 - Property values point to a property key.
 - The decoupling of property keys and values allows us to expose options to users so that they can vote on whether a key is appropriate or not on a node/rel, as well as voting on what the value should be for each property key. This is one important way in which we enable crowd-sourcing.
 
-## API
+## Layer 1 API: Low Level Operations using the Graph Repositories
 
 ### Node Type
 
@@ -79,7 +79,9 @@ Database [schema](https://github.com/etenlab/database-api/blob/main/src/core/sql
 - deletePost(post_id: uuid): boolean
 - readDiscussion(discussion_id: uuid): Discussion
 
-### Node/Relationship CREATE Convenience Wrappers
+## Layer 2 API:  Convenience Wrappers
+
+### Node/Relationship CREATE
 
 These functions will always create a new node or relationship. The root keys of the object will be used as the unique keys of the new node/relationship. The values of those keys will be the child value/object of the root keys passed in.
 
@@ -88,19 +90,21 @@ These functions will always create a new node or relationship. The root keys of 
 - createRelatedToNodeFromObject(node_uuid: uuid, rel_type_name: string, type_name: string, obj: {}): \{relationship: [Relationship Object], node: [Node Object]\}
 - createRelatedFromNodeFromObject(type_name: string, obj: {}, rel_type_name: string, node_uuid: uuid): \{relationship: [Relationship Object], node: [Node Object]\}
 
-### Upsert Node/Relationship Convenience Wrappers
+### Node/Relationship UPSERT
 
 These operations use a previously created node/relationship and are idempotent with key creation. They will first search for a key before inserting.
 
 - upsertNodeObject(node_uuid: uuid, obj: {}): Node
 - upsertRelationshipObject(rel_uuid: uuid, obj: {}): Relationship
 
+## Layer 3 API: Feature Utility Functions
+
 ### Table Data
 
 ![Table Data](./img/table-data.png)
 
 - createTable(name: string): Table
-- addTableData(table_name: string, column_name: string, row_id: string, cell_data: any): Cell
+- addTableData(table_name: string, column_name: string, row: uuid, cell_data: {}): Cell
 - getTable(name: string): Table
 
 ### Key Terms
