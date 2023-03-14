@@ -103,12 +103,54 @@ These operations use a previously created node/relationship and are idempotent w
 
 ![Table Data](./img/table-data.png)
 
-- createTable(name: string): Table
-- addTableData(table_name: string, column_name: string, row: uuid, cell_data: {}): Cell
-- getTable(name: string): Table
-- addColumn(table: uuid, column_name: string): uuid
-- addRow(table: uuid, column: uuid): uuid
-- addCell(column: uuid, row: uuid, value: {}): uuid
+#### Table
+- createTable(name: string): uuid
+  - creates a table node and adds the name property
+  - `name`: the name of the new table
+  - returns the uuid of the table node
+- getTable(name: string): uuid
+  - `name`: the name of the table to search for
+  - returns the uuid of the found table node or `null`
+
+#### Column
+- createColumn(table: uuid, column_name: string): uuid
+  - create a new column node if the given name does not exist.
+  - `table`: the table node uuid to add a column to
+  - `column_name`: the name of the new column
+  - returns the uuid of the new column node or the node that is found with the same name
+- getColumn(table: uuid, column_name: string): uuid
+  - `table`: uuid of the table node
+  - `column_name`: name of the column to search for
+  - returns the column uuid of the given name if there is one, `null` if not.
+
+#### Row
+- createRow(table: uuid): uuid
+  - creates a new row node for the given table 
+  - `table`: uuid of the table node
+  - returns the uuid of the new row node. This is used to create `table-cell`s
+- getRow(table: uuid, finder: (table: uuid) => uuid): uuid
+  - finds the row node using an given lambda to crawl the table's graph
+  - `table`: uuid of the table node
+  - `finder`: lambda that takes the table node uuid as input and crawls the table's graph to find the row node requestd.
+  - returns the uuid of the found row node or `null`.
+
+#### Cell
+- createCell(column: uuid, row: uuid, value: {}): uuid
+  - creates a new cell given the row and column nodes of a table
+  - `column`: uuid of the column node
+  - `row`: uuid of the row node
+  - `value`: object to store as the new cell's value
+  - returns the property-value's uuid
+- readCell(column: uuid, row: uuid): {} | null
+  - get a cell's value
+  - `column`: uuid of a column node
+  - `row`: uuid of a row node
+  - returns the value of the data key of the cell node for a given row and column, `null` if not found.
+- updateCell(column: uuid, row: uuid, value: {}): uuid
+  - `column`: uuid of a column node
+  - `row`: uuid of a row node
+  - `value`: ojbect to store in the cell
+  - return the property-value's uuid if the cell is found and updated, `null` if not found or updated.
 
 ### Key Terms
 
@@ -129,22 +171,37 @@ These operations use a previously created node/relationship and are idempotent w
 
 ![word](./img/word.png)
 
-- createWord(word: string): uuid
+- createWord(word: string, language: uuid): uuid
+  - creates a word in the given language if it does not already exist.
   - `word`: the word. There shouldn't be any spaces. In the current system we define words by splitting on white space.
+  - `language`: the uuid of the `table-row` of the language this word is in. `word`s shall only be in one language.
   - Returns the uuid of the word created. If a word already exists, it will return the uuid of the previously created word.
-- getWord(word: string): uuid
+- getWord(word: string, language: uuid): uuid
   - `word`: the word you want to find.
+  - `language`: uuid of the `table-row` for the language you want to search in.
   - Returns the uuid of the `word` node. `null` if no word is found.
+
+### Word Translation
+
+![word-translation](./img/word-translation.png)
+
+- createWordTranslationRelationship(from: uuid, to: uuid): uuid
+  - connects two words from different languages using the translation relationship if one does not already exists.
+  - `from`: uuid of word node
+  - `to`: uuid of word node. shall be in a different language than `from` node.
+  - returns the uuid of the relationship node created or found.
 
 ### Word Sequence
 
 ![word-sequence](./img/word-sequence.png)
 
-- createWordSequence(text: string, document: uuid, creator: uuid, import-uid: string): uuid
+- createWordSequence(text: string, document: uuid, creator: uuid, import-uid: string, language: uuid): uuid
+  - creates a new word sequence in the given language for a specific document.
   - `text`: the word sequence to store in the graph. The function will split it using whitespace and not punctuation. Tokens created from the string will be used to create the word nodes
   - `document`: the documnet node uuid that the new `word-sequence` node will be associated to.
   - `creator`: the `user` node uuid that the new `word-sequence` node will be associated to. This is not the owner of the text (if any), this is the user account who imported/created it in the system.
   - `import-uid`: this is a free field for the importer/creator to use to distinguish different imports or versions. This will can be used later in read queries to show different import runs.
+  - `language`: uuid of `table-row` node of the language this `word-sequence` is. `word-sequence`s shall only be one language. To construct sentences of multiple languages just point from one sequence to the next.
   - Returns the node uuid from the `word-sequence` node created.
   - This function will always create a new `word-sequence`.
 
@@ -160,6 +217,16 @@ These operations use a previously created node/relationship and are idempotent w
 - getWordSequence(text: string): uuid[]
   - `text` string of words to find in the database
   - Returns an array of `word-sequence` node uuids if there are any that match the `text` given. `null` if no uuids where found.
+
+### Word Sequence Translation
+
+![word-sequence-translation](./img/word-sequence-translation.png)
+
+- createWordSequenceTranslationRelationship(from: uuid, to: uuid): uuid
+  - connects two word sequences from different languages using the translation relationship if one does not already exist.
+  - `from`: uuid of source word sequence node
+  - `to`: uuid of target word sequence node. shall be in a differnt language than source
+  - returns the uuid of the relationship node that is created.
 
 ### Voting
 
