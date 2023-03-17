@@ -33,38 +33,14 @@ Notes:
 - If you want to run only specific services, provide their names at the end of the command, e.g. `docker-compose -f local/docker-compose.yml --env-file .env up database-api discussion-api`
 - If for some reason you run `docker` outside your docker's host system, e.g. in a devcontainer, virtual machine, etc, make sure to have correct value for variable `KC_DB_INIT_SCRIPT_PATH` as it is should point to the file on your docker's host system.
 
-## Fill the database with data
+## Setup development in VS Code
 
-1. Clone `datasets` repo:
-
-```bash
-git clone git@github.com:etenlab/datasets.git
-```
-
-2. Clone `scripts` repo:
+We are using eslint and prettier in our repos. To run the linter and fix errors:
 
 ```bash
-git clone git@github.com:etenlab/scripts.git
+npm run lint
+npm run format
 ```
-
-3. Configure database parameters in `./scripts/dataset-scripts/eilcommon.py`
-4. Download necessary python modules:
-
-```bash
-pip install psycopg2-binary bs4
-```
-
-5. Run the script:
-
-```bash
-sh scripts/dataset-scripts/gimme.sh
-```
-
-Ensure no errors in the output.
-
-6. After running the script, open `localhost:${PORT_GRAPHQL}` (Hasura web interface) and ensure your data is tracked. If not tracked, add it manually using url like this: `postgresql://postgres:example@postgres:5432/eil` (`postgresql://${DB_USERNAME}:${DB_PASSWORD}@postgres:5432/${DB_EIL_DATABASE}`). Set schema name to `public`.
-
-**Congratulations**! Now the database is filled with data.
 
 ## Develop in the local environment
 
