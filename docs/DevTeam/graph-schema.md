@@ -101,6 +101,20 @@ These operations use a previously created node/relationship and are idempotent w
 
 ![voting](./img/voting.png)
 
+- createElection(node: uuid): uuid
+  - creates a new election on a node
+  - `node`: the uuid of the node to attach the election to.
+  - returns the uuid of the `election` node that was created.
+- addBallotEntry(election_id: uuid, ballot_entry_target: uuid): uuid
+  - creates a new voting option on an election
+  - `election_id`: uuid of election node to attach the new ballot entry to
+  - `ballot_entry_target`: uuid of the node/relationship/key/value to create a ballot entry on
+  - returns the uuid of the new `ballot_entry` node created.
+- addVote(ballot_entry_id: uuid, vote: boolean?): uuid
+  - adds a vote from the logged in user on a ballot entry. Votes are stored in their own table, not in the graph.
+  - `ballot_entry_id`: uuid of the `ballot_entry` node that is being voted on
+  - `vote`: nullable boolean of the vote. If `null`, the vote is removed from the `ballot_entry`
+  - returns the uuid of the row in the votes table
 
 ## Layer 3 API: Feature Utility Functions
 
