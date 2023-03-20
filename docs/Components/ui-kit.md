@@ -75,28 +75,88 @@ You can find details for each component at the [Storybook server](https://storyb
 ```typescript palette.ts
 // This is definition file in ui-kit package.
 export const colors = {
-  'blue-primary': '#1F77DF',
-  'light-blue': '#E3EAF3',
-  disable: '#F3F6F9',
-  dark: '#1B1B1B',
-  gray: '#5C6673',
-  'middle-gray': '#C2CBD7',
-  white: '#FFFFFF',
-  red: '#E04E4E',
-  'light-red': '#FFE4E4',
-  green: '#4ABE95',
-  'light-green': '#DAF2EA',
-  yellow: '#FCBB14',
-  'middle-yellow': '#FFF1CE',
-  'light-yellow': '#FFF9EA',
+  'blue-primary': {
+    light: '#1F77DF',
+    dark: '#42a5f5',
+  },
+  'light-blue': {
+    light: '#E3EAF3',
+    dark: '#006064',
+  },
+  disable: {
+    light: '#F3F6F9',
+    dark: '#424242',
+  },
+  dark: {
+    light: '#1B1B1B',
+    dark: '#fafafa',
+  },
+  gray: {
+    light: '#5C6673',
+    dark: '#eee',
+  },
+  'middle-gray': {
+    light: '#C2CBD7',
+    dark: '#bdbdbd',
+  },
+  white: {
+    light: '#FFFFFF',
+    dark: '#212121',
+  },
+  red: {
+    light: '#E04E4E',
+    dark: '#d32f2f',
+  },
+  'light-red': {
+    light: '#FFE4E4',
+    dark: '#880e4f',
+  },
+  green: {
+    light: '#4ABE95',
+    dark: '#a5d6a7',
+  },
+  'light-green': {
+    light: '#DAF2EA',
+    dark: '#558b2f',
+  },
+  yellow: {
+    light: '#FCBB14',
+    dark: '#e65100',
+  },
+  'middle-yellow': {
+    light: '#FFF1CE',
+    dark: '#ff8f00',
+  },
+  'light-yellow': {
+    light: '#FFF9EA',
+    dark: '#ffa000',
+  },
 };
 ```
 
 ```tsx sample.tsx
-import { MuiMaterial, Typography, colors, Button } from '@eten-lab/ui-kit';
+import {
+  MuiMaterial,
+  Typography,
+  useColorModeContext,
+  Button,
+} from '@eten-lab/ui-kit';
 
 export function Sample() {
-  return <Button sx={{ color: colors['gray'] }}>Sample Button</Button>;
+  const { getColor } = useColorModeContext();
+
+  return <Button sx={{ color: getColor('gray') }}>Sample Button</Button>;
+}
+```
+
+```tsx styled.tsx
+import { styled, Stack } from '@mui/material';
+
+export const QuillContainer = styled(Stack)(({ theme }) => ({
+  '& .quill': {
+    // focus
+    color: theme.palette.text['gray'], // theme.palette.text['light-green'] etc
+  },
 }
 ```
 
@@ -271,6 +331,46 @@ Mini.parameters = {
     },
   },
 };
+```
+
+### Custom Hooks
+
+- useColorModeContext()
+
+We have introduced a new `Dark Mode` design. You can inform the `UI-Kit` package which mode you would like to use by calling the `setColorMode` function. Additionally, you can easily obtain a color by using the `getColor` function, without worrying about the current mode.
+
+```tsx sample.tsx
+import { useState } from 'react';
+import {
+  MuiMaterial,
+  Typography,
+  useColorModeContext,
+  Button,
+} from '@eten-lab/ui-kit';
+
+export function Sample() {
+  const { getColor, setColorMode } = useColorModeContext();
+  const [themeMode, setThemeMode] = useState<'light' | 'dark'>('light');
+
+  const handleToggle = () => {
+    if (themeMode === 'light') {
+      setThemeMode('dark');
+      setColorMode('dark');
+    } else {
+      setThemeMode('light');
+      setColorMode('light');
+    }
+  };
+
+  const buttonColor =
+    themeMode === 'light' ? getColor('red') : getColor('green');
+
+  return (
+    <Button sx={{ color: buttonColor }} onClick={handleToggle}>
+      Toggle Color Mode
+    </Button>
+  );
+}
 ```
 
 ## Source
