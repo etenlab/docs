@@ -42,6 +42,17 @@ npm run lint
 npm run format
 ```
 
+```json .vscode/settings.json
+{
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	},
+	"eslint.enable": true,
+	"eslint.format.enable": true,
+	"editor.formatOnSave": true
+}
+```
+
 ## Develop in the local environment
 
 Now that you have setup your local environment, let's consider two ways of working with that.
