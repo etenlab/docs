@@ -79,7 +79,7 @@ Database [schema](https://github.com/etenlab/database-api/blob/main/src/core/sql
 - deletePost(post_id: uuid): boolean
 - readDiscussion(discussion_id: uuid): Discussion
 
-## Layer 2 API:  Convenience Wrappers
+## Layer 2 API:  Convenience Wrappers and Voting
 
 ### Node/Relationship CREATE
 
@@ -96,6 +96,11 @@ These operations use a previously created node/relationship and are idempotent w
 
 - upsertNodeObject(node_uuid: uuid, obj: {}): Node
 - upsertRelationshipObject(rel_uuid: uuid, obj: {}): Relationship
+
+### Voting
+
+![voting](./img/voting.png)
+
 
 ## Layer 3 API: Feature Utility Functions
 
@@ -228,6 +233,14 @@ These operations use a previously created node/relationship and are idempotent w
   - `to`: uuid of target word sequence node. shall be in a differnt language than source
   - returns the uuid of the relationship node that is created.
 
-### Voting
+### Dictionary
 
-![voting](./img/voting.png)
+![dictionary](./img/dictionary.png)
+
+// todo
+
+### Phrase Book
+
+![phrase-book](./img/phrase-book.png)
+
+// todo
