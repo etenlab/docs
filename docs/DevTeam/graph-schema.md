@@ -23,13 +23,13 @@ Database [schema](https://github.com/etenlab/database-api/blob/main/src/core/sql
 
 ![Graph Legend](./img/legend.png)
 
-- Nodes are represented by orange boxes and are the root unit of how we store information in the graph. 
+- Nodes are represented by orange boxes and are the root unit of how we store information in the graph.
 - Every node has a type name stored as a string.
 - Relationships (rel) connect two nodes.
 - Every rel has a type name stored as a string.
 - Both nodes and relationships can have properties.
 - Properties are split into keys and values.
-- Property keys point to a node or rel. 
+- Property keys point to a node or rel.
 - Property values point to a property key.
 - The decoupling of property keys and values allows us to expose options to users so that they can vote on whether a key is appropriate or not on a node/rel, as well as voting on what the value should be for each property key. This is one important way in which we enable crowd-sourcing.
 
@@ -79,7 +79,7 @@ Database [schema](https://github.com/etenlab/database-api/blob/main/src/core/sql
 - deletePost(post_id: uuid): boolean
 - readDiscussion(discussion_id: uuid): Discussion
 
-## Layer 2 API:  Convenience Wrappers and Voting
+## Layer 2 API: Convenience Wrappers and Voting
 
 ### Node/Relationship CREATE
 
@@ -102,6 +102,7 @@ These operations use a previously created node/relationship and are idempotent w
 ![voting](./img/voting.png)
 
 #### Elections
+
 - createElection(node: uuid): uuid
   - creates a new election on a node
   - `node`: the uuid of the node to attach the election to.
@@ -115,6 +116,7 @@ These operations use a previously created node/relationship and are idempotent w
   - returns all the `ballot_entry`s with their votes on a given election
 
 #### Ballot Entries
+
 - addBallotEntry(election_id: uuid, ballot_entry_target: uuid): uuid
   - creates a new voting option on an election
   - `election_id`: uuid of election node to attach the new ballot entry to
@@ -122,12 +124,12 @@ These operations use a previously created node/relationship and are idempotent w
   - returns the uuid of the new `ballot_entry` node created.
 
 #### Votes
+
 - addVote(ballot_entry_id: uuid, vote: boolean?): uuid
   - adds a vote from the logged in user on a ballot entry. Votes are stored in their own table, not in the graph.
   - `ballot_entry_id`: uuid of the `ballot_entry` node that is being voted on
   - `vote`: nullable boolean of the vote. If `null`, the vote is removed from the `ballot_entry`
   - returns the uuid of the row in the votes table
-
 
 ## Layer 3 API: Feature Utility Functions
 
@@ -136,6 +138,7 @@ These operations use a previously created node/relationship and are idempotent w
 ![Table Data](./img/table-data.png)
 
 #### Table
+
 - createTable(name: string): uuid
   - creates a table node and adds the name property
   - `name`: the name of the new table
@@ -145,6 +148,7 @@ These operations use a previously created node/relationship and are idempotent w
   - returns the uuid of the found table node or `null`
 
 #### Column
+
 - createColumn(table: uuid, column_name: string): uuid
   - create a new column node if the given name does not exist.
   - `table`: the table node uuid to add a column to
@@ -156,8 +160,9 @@ These operations use a previously created node/relationship and are idempotent w
   - returns the column uuid of the given name if there is one, `null` if not.
 
 #### Row
+
 - createRow(table: uuid): uuid
-  - creates a new row node for the given table 
+  - creates a new row node for the given table
   - `table`: uuid of the table node
   - returns the uuid of the new row node. This is used to create `table-cell`s
 - getRow(table: uuid, finder: (table: uuid) => uuid): uuid
@@ -167,6 +172,7 @@ These operations use a previously created node/relationship and are idempotent w
   - returns the uuid of the found row node or `null`.
 
 #### Cell
+
 - createCell(column: uuid, row: uuid, value: {}): uuid
   - creates a new cell given the row and column nodes of a table
   - `column`: uuid of the column node
@@ -264,10 +270,47 @@ These operations use a previously created node/relationship and are idempotent w
 
 ![dictionary](./img/dictionary.png)
 
-// todo
+- uses from `Word`:
+
+  - `createWord(word: string, language: uuid): uuid`
+  - `getWord(word: string, language: uuid): uuid`
+
+- `createDefinition (definition: string, language: uuid): uuid`
+
+  - creates a definition in the given language if it does not already exist (check on full definition sting comparsion).
+  - `definition`: the definition. Arbitrary string.
+  - `language`: the uuid of the `table-row` of the language this definition is written at.
+  - Returns the uuid of the definition created. If a definition already exists, it will return the uuid of the previously created definition.
+
+- `createDefinitionRelationship(from: uuid, to: uuid): uuid`
+
+  - connects from node (word|phrase) to its definition on same language using the definition relationship if one does not already exists.
+  - `from`: uuid of word|phrase node
+  - `to`: uuid of definition node. Shall be in the same languages.
+  - returns the uuid of the relationship node created or found.
+
+- `getDefinitions(forNodes: Array<uuid>, language: uuid): Array<uuid>`
+  - `forNodes`: uuid's of nodes (word|phrase) which definitions should be found.
+  - language: uuid
+    returns array of definitions for nodes (word|phrase) with given uuid's.
 
 ### Phrase Book
 
 ![phrase-book](./img/phrase-book.png)
 
-// todo
+- uses from `Dictionary`:
+
+  - `createDefinition (definition: string, language: uuid): uuid`
+  - `getDefinitions(forNodes: Array<uuid>, language: uuid): Array<uuid>`
+
+- `createPhrase(phrase: string, language: uuid): uuid`
+
+  - creates a phrase in the given language if it does not already exist.
+  - `phrase`: the phrase.
+  - `language`: the uuid of the `table-row` of the language this phrase is in. `phrase`s shall only be in one language.
+  - Returns the uuid of the phrase created. If a phrase already exists, it will return the uuid of the previously created phrase.
+
+- `getPhrase(phrase: string, language: uuid): uuid`
+  - `phrase`: the phrase you want to find.
+  - `language`: uuid of the `table-row` for the language you want to search in.
+  - Returns the uuid of the `phrase` node. `null` if no phrase is found.
