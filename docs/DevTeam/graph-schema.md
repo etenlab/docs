@@ -63,23 +63,7 @@ Database [schema](https://github.com/etenlab/database-api/blob/main/src/core/sql
 - readRelationship(rel_id: uuid): Relationship
 - listRelatedNodes(node_id: uuid): Array\<\{relationship: [Relationship Object], node: [Node Object]\}\>
 
-### Elections
-
-- createElection():uuid
-- addBallotEntry(election_id: uuid, node_id: uuid): uuid
-- addVote(ballot_entry_id: uuid, vote: boolean): uuid
-- addVote(ballot_entry_id: uuid): boolean
-- readElection(election_id: uuid): Election
-
-### Discussion
-
-- createDiscussion(): uuid
-- createPost(discussion_id: uuid, content: string): uuid
-- updatePost(post_id: uuid): boolean
-- deletePost(post_id: uuid): boolean
-- readDiscussion(discussion_id: uuid): Discussion
-
-## Layer 2 API:  Convenience Wrappers and Voting
+## Layer 2 API:  Convenience Wrappers, Voting, Discussion
 
 ### Node/Relationship CREATE
 
@@ -128,6 +112,13 @@ These operations use a previously created node/relationship and are idempotent w
   - `vote`: nullable boolean of the vote. If `null`, the vote is removed from the `ballot_entry`
   - returns the uuid of the row in the votes table
 
+### Discussion
+
+- createDiscussion(): uuid
+- createPost(discussion_id: uuid, content: string): uuid
+- updatePost(post_id: uuid): boolean
+- deletePost(post_id: uuid): boolean
+- readDiscussion(discussion_id: uuid): Discussion
 
 ## Layer 3 API: Feature Utility Functions
 
@@ -269,5 +260,11 @@ These operations use a previously created node/relationship and are idempotent w
 ### Phrase Book
 
 ![phrase-book](./img/phrase-book.png)
+
+// todo
+
+### Versification
+
+![versification](./img/versification.png)
 
 // todo
