@@ -41,6 +41,29 @@ import { ProtectedRoutes } from '@/router/ProtectedRoutes';
 
 </CH.Code>
 
+### Components & Functions
+
+- alertFeedback(feedbackType: 'success' | 'error' | 'info' | 'warning', message: string )
+
+This is a alert function.
+
+```tsx sample.tsx
+import { useAppContext } from '@/hooks/useAppContext';
+
+function Sample({ userId }: { userId: number; }) {
+  const { actions: { alertFeedback } } = useAppContext();
+
+  if (userId === null) {
+    alertFeedback("warning", "Please login!");
+    return null;
+  }
+
+  return <div>{userId}</div>
+}
+
+```
+
+
 ### Do not & Do
 
 - Don't install directly Mui package.
