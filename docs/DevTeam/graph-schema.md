@@ -63,7 +63,7 @@ Database [schema](https://github.com/etenlab/database-api/blob/main/src/core/sql
 - readRelationship(rel_id: uuid): Relationship
 - listRelatedNodes(node_id: uuid): Array\<\{relationship: [Relationship Object], node: [Node Object]\}\>
 
-## Layer 2 API:  Convenience Wrappers, Voting, Discussion
+## Layer 2 API: Convenience Wrappers, Voting, Discussion
 
 ### Node/Relationship CREATE
 
@@ -83,35 +83,39 @@ These operations use a previously created node/relationship and are idempotent w
 
 ### Voting
 
-![voting](./img/voting.png)
+![voting](./img/voting1.png)
 
 #### Elections
 
-- createElection(node: uuid): uuid
-  - creates a new election on a node
-  - `node`: the uuid of the node to attach the election to.
+- createElection(tableName: TableNameType, rowId: uuid): uuid
+  - creates a new `election` on a node, this function ensures that only one `election` node is created once for the same pair of `tableName` and `rowdId`.
+  - `tableName`: the table name of the graph tables to attach the election to.
+  - `rowId`: uuid of the node/relationship/key/value to attach the election to.
   - returns the uuid of the `election` node that was created.
-- listElections(id: uuid): uuid[]
-  - lists all the elections on a given `node`
-  - `id`: uuid of any node/relationship/key/value
-  - returns an array of election uuids
+- getElection(tableName: TableNameType, rowdId: uuid): uuid
+  - get an election has same `tableName` and `rowId`
+  - `tableName`: the table name of the graph tables
+  - `rowId`: uuid of any node/relationship/key/value
+  - returns the uuid of the election node which has same `tableName` and `rowId`
 - getElectionFull(election_id: uuid): ElectionFull
   - `election_id`: uuid of the election node to fetch
+  - `ElectionFull`: Array\<\{ ballot_entry_id: uuid; up: number; down: number; \}\>
   - returns all the `ballot_entry`s with their votes on a given election
 
 #### Ballot Entries
 
-- addBallotEntry(election_id: uuid, ballot_entry_target: uuid): uuid
-  - creates a new voting option on an election
+- addBallotEntry(election_id: uuid, ballot_entry_target: BallotEntryTarget): uuid
+  - creates a new voting option on a node and create connection between election and voting option via relationship, this function ensures that only one voting option node is created once for the same elcetion_id and ballot_entry_target.
   - `election_id`: uuid of election node to attach the new ballot entry to
-  - `ballot_entry_target`: uuid of the node/relationship/key/value to create a ballot entry on
+  - `ballot_entry_target`: \{ tableName: TableNameType; rowId: uuid; \}
   - returns the uuid of the new `ballot_entry` node created.
 
 #### Votes
 
-- addVote(ballot_entry_id: uuid, vote: boolean?): uuid
-  - adds a vote from the logged in user on a ballot entry. Votes are stored in their own table, not in the graph.
+- addVote(ballot_entry_id: uuid, userId: uuid, vote: boolean?): uuid
+  - adds a vote from the logged in user on a ballot entry. Votes are stored in their own table, not in the graph. if already exists a vote for the same ballot_entry_id and userId, this function will update with new vote.
   - `ballot_entry_id`: uuid of the `ballot_entry` node that is being voted on
+  - `user_id`: uuid of the `userId`
   - `vote`: nullable boolean of the vote. If `null`, the vote is removed from the `ballot_entry`
   - returns the uuid of the row in the votes table
 
