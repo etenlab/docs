@@ -39,28 +39,30 @@ Database [schema](https://github.com/etenlab/database-api/blob/main/src/core/sql
 
 - createNodeType(type_name: string): string
 - listNodeTypes(): String[]
-- listAllNodesByType(type_name: string): Node[]
 
 ### Nodes
 
 - listAllNodesByType(type_name: string): Node[]
 - createNode(type_name: string): uuid
-- createNodePropertyKey(node_id: uuid, key_name: string): uuid
-- createNodePropertyValue(key_id: uuid, key_value: any): uuid
-- readNode(node_id: uuid) Node
+- getNodePropertyKey(node_id: uuid, key_name: string): uuid
+- setNodePropertyValue(key_id: uuid, key_value: unknown): uuid
+- readNode(node_id: uuid, relations?: string[], whereObj?: FindOptionsWhere\<Node\>): Node | null
+- getNodeByProp(type: string, prop: \{ key: string; value: unknown \}, relationship?: \{ relationship_type?: string; from_node_id?: uuid; to_node_id?: uuid; \}): Node | null
+- getNodesByProps(type: string, props: \{ key: string; value: unknown; \}[]): uuid[]
 
 ### Relationship Type
 
 - createRelationshipType(type_name: string): uuid
 - listRelationshipsTypes(): String[]
-- listAllRelationshipsByType(type_name: string): Relationships[]
 
 ### Relationships
 
-- createRelationship(node_1: uuid, node_2: uuid, type_name: string): uuid
-- createRelationshipPropertyKey(rel_id: uuid, key_name: string): uuid
-- createRelationshipPropertyValue(key_id: uuid, property_value: any): uuid
+- listAllRelationshipsByType(type_name: string): Relationships[]
+- createRelationship(from_node_id: uuid, to_node_id: uuid, type_name: string): Relationship
+- getRelationshipPropertyKey(rel_id: uuid, key_name: string): uuid
+- setRelationshipPropertyValue(key_id: uuid, property_value: any): uuid
 - readRelationship(rel_id: uuid): Relationship
+- findRelationship(from_node_id: uuid, to_node_id: uuid, type_name: string) Relationship | null
 - listRelatedNodes(node_id: uuid): Array\<\{relationship: [Relationship Object], node: [Node Object]\}\>
 
 ## Layer 2 API: Convenience Wrappers, Voting, Discussion
@@ -71,15 +73,15 @@ These functions will always create a new node or relationship. The root keys of 
 
 - createNodeFromObject(type_name: string, obj: {}): Node
 - createRelationshipFromObject(type_name: string, obj: {}, from_node: uuid, to_node: uuid): Relationship
-- createRelatedToNodeFromObject(node_uuid: uuid, rel_type_name: string, type_name: string, obj: {}): \{relationship: [Relationship Object], node: [Node Object]\}
-- createRelatedFromNodeFromObject(type_name: string, obj: {}, rel_type_name: string, node_uuid: uuid): \{relationship: [Relationship Object], node: [Node Object]\}
+- createRelatedFromNodeFromObject(rel_type_name: string, rel_obj: {}, node_type_name: string, obj: {}, to_node_id: uuid): \{relationship: [Relationship Object], node: [Node Object]\}
+- createRelatedToNodeFromObject(rel_type_name: string, rel_obj: {}, from_node_id: uuid, node_type_name, obj: {}): \{relationship: [Relationship Object], node: [Node Object]\}
 
 ### Node/Relationship UPSERT
 
 These operations use a previously created node/relationship and are idempotent with key creation. They will first search for a key before inserting.
 
-- upsertNodeObject(node_uuid: uuid, obj: {}): Node
-- upsertRelationshipObject(rel_uuid: uuid, obj: {}): Relationship
+- updateNodeObject(node_uuid: uuid, obj: {}): Node
+- updateRelationshipObject(rel_uuid: uuid, obj: {}): Relationship
 
 ### Voting
 
@@ -87,12 +89,20 @@ These operations use a previously created node/relationship and are idempotent w
 
 #### Elections
 
-- createElection(tableName: TableNameType, rowId: uuid): uuid
+type TablesName =
+| 'nodes'
+| 'node_property_keys'
+| 'node_property_values'
+| 'relationships'
+| 'relationship_property_keys'
+| 'relationship_property_values';
+
+- createElection(tableName: TableName, rowId: uuid): uuid
   - creates a new `election` on a node, this function ensures that only one `election` node is created once for the same pair of `tableName` and `rowdId`.
   - `tableName`: the table name of the graph tables to attach the election to.
   - `rowId`: uuid of the node/relationship/key/value to attach the election to.
   - returns the uuid of the `election` node that was created.
-- getElection(tableName: TableNameType, rowdId: uuid): uuid
+- listElections(tableName: TableNameType, rowdId: uuid): uuid
   - get an election has same `tableName` and `rowId`
   - `tableName`: the table name of the graph tables
   - `rowId`: uuid of any node/relationship/key/value
