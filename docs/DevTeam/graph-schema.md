@@ -8,6 +8,10 @@ For example, you could have a document that you want everyone to be able to edit
 
 ## Tables
 
+Layer Cake 
+
+![layer-cake](./img/layers.png)
+
 Database [schema](https://github.com/etenlab/database-api/blob/main/src/core/sql/schema/v1.schema.sql)
 
 - `node_types`
