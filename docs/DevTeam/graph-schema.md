@@ -43,31 +43,33 @@ Database [schema](https://github.com/etenlab/database-api/blob/main/src/core/sql
 
 - createNodeType(type_name: string): string
 - listNodeTypes(): String[]
-- listAllNodesByType(type_name: string): Node[]
 
 ### Nodes
 
 - listAllNodesByType(type_name: string): Node[]
 - createNode(type_name: string): uuid
-- createNodePropertyKey(node_id: uuid, key_name: string): uuid
-- createNodePropertyValue(key_id: uuid, key_value: any): uuid
-- readNode(node_id: uuid) Node
+- getNodePropertyKey(node_id: uuid, key_name: string): uuid
+- setNodePropertyValue(key_id: uuid, key_value: unknown): uuid
+- readNode(node_id: uuid, relations?: string[], whereObj?: FindOptionsWhere\<Node\>): Node | null
+- getNodeByProp(type: string, prop: \{ key: string; value: unknown \}, relationship?: \{ relationship_type?: string; from_node_id?: uuid; to_node_id?: uuid; \}): Node | null
+- getNodesByProps(type: string, props: \{ key: string; value: unknown; \}[]): uuid[]
 
 ### Relationship Type
 
 - createRelationshipType(type_name: string): uuid
 - listRelationshipsTypes(): String[]
-- listAllRelationshipsByType(type_name: string): Relationships[]
 
 ### Relationships
 
-- createRelationship(node_1: uuid, node_2: uuid, type_name: string): uuid
-- createRelationshipPropertyKey(rel_id: uuid, key_name: string): uuid
-- createRelationshipPropertyValue(key_id: uuid, property_value: any): uuid
+- listAllRelationshipsByType(type_name: string): Relationships[]
+- createRelationship(from_node_id: uuid, to_node_id: uuid, type_name: string): Relationship
+- getRelationshipPropertyKey(rel_id: uuid, key_name: string): uuid
+- setRelationshipPropertyValue(key_id: uuid, property_value: any): uuid
 - readRelationship(rel_id: uuid): Relationship
+- findRelationship(from_node_id: uuid, to_node_id: uuid, type_name: string) Relationship | null
 - listRelatedNodes(node_id: uuid): Array\<\{relationship: [Relationship Object], node: [Node Object]\}\>
 
-## Layer 2 API:  Convenience Wrappers, Voting, Discussion
+## Layer 2 API: Convenience Wrappers, Voting, Discussion
 
 ### Node/Relationship CREATE
 
@@ -75,47 +77,59 @@ These functions will always create a new node or relationship. The root keys of 
 
 - createNodeFromObject(type_name: string, obj: {}): Node
 - createRelationshipFromObject(type_name: string, obj: {}, from_node: uuid, to_node: uuid): Relationship
-- createRelatedToNodeFromObject(node_uuid: uuid, rel_type_name: string, type_name: string, obj: {}): \{relationship: [Relationship Object], node: [Node Object]\}
-- createRelatedFromNodeFromObject(type_name: string, obj: {}, rel_type_name: string, node_uuid: uuid): \{relationship: [Relationship Object], node: [Node Object]\}
+- createRelatedFromNodeFromObject(rel_type_name: string, rel_obj: {}, node_type_name: string, obj: {}, to_node_id: uuid): \{relationship: [Relationship Object], node: [Node Object]\}
+- createRelatedToNodeFromObject(rel_type_name: string, rel_obj: {}, from_node_id: uuid, node_type_name, obj: {}): \{relationship: [Relationship Object], node: [Node Object]\}
 
 ### Node/Relationship UPSERT
 
 These operations use a previously created node/relationship and are idempotent with key creation. They will first search for a key before inserting.
 
-- upsertNodeObject(node_uuid: uuid, obj: {}): Node
-- upsertRelationshipObject(rel_uuid: uuid, obj: {}): Relationship
+- updateNodeObject(node_uuid: uuid, obj: {}): Node
+- updateRelationshipObject(rel_uuid: uuid, obj: {}): Relationship
 
 ### Voting
 
-![voting](./img/voting.png)
+![voting](./img/voting1.png)
 
 #### Elections
 
-- createElection(node: uuid): uuid
-  - creates a new election on a node
-  - `node`: the uuid of the node to attach the election to.
+type TablesName =
+| 'nodes'
+| 'node_property_keys'
+| 'node_property_values'
+| 'relationships'
+| 'relationship_property_keys'
+| 'relationship_property_values';
+
+- createElection(tableName: TableName, rowId: uuid): uuid
+  - creates a new `election` on a node, this function ensures that only one `election` node is created once for the same pair of `tableName` and `rowdId`.
+  - `tableName`: the table name of the graph tables to attach the election to.
+  - `rowId`: uuid of the node/relationship/key/value to attach the election to.
   - returns the uuid of the `election` node that was created.
-- listElections(id: uuid): uuid[]
-  - lists all the elections on a given `node`
-  - `id`: uuid of any node/relationship/key/value
-  - returns an array of election uuids
+- listElections(tableName: TableNameType, rowdId: uuid): uuid
+  - get an election has same `tableName` and `rowId`
+  - `tableName`: the table name of the graph tables
+  - `rowId`: uuid of any node/relationship/key/value
+  - returns the uuid of the election node which has same `tableName` and `rowId`
 - getElectionFull(election_id: uuid): ElectionFull
   - `election_id`: uuid of the election node to fetch
+  - `ElectionFull`: Array\<\{ ballot_entry_id: uuid; up: number; down: number; \}\>
   - returns all the `ballot_entry`s with their votes on a given election
 
 #### Ballot Entries
 
-- addBallotEntry(election_id: uuid, ballot_entry_target: uuid): uuid
-  - creates a new voting option on an election
+- addBallotEntry(election_id: uuid, ballot_entry_target: BallotEntryTarget): uuid
+  - creates a new voting option on a node and create connection between election and voting option via relationship, this function ensures that only one voting option node is created once for the same elcetion_id and ballot_entry_target.
   - `election_id`: uuid of election node to attach the new ballot entry to
-  - `ballot_entry_target`: uuid of the node/relationship/key/value to create a ballot entry on
+  - `ballot_entry_target`: \{ tableName: TableNameType; rowId: uuid; \}
   - returns the uuid of the new `ballot_entry` node created.
 
 #### Votes
 
-- addVote(ballot_entry_id: uuid, vote: boolean?): uuid
-  - adds a vote from the logged in user on a ballot entry. Votes are stored in their own table, not in the graph.
+- addVote(ballot_entry_id: uuid, userId: uuid, vote: boolean?): uuid
+  - adds a vote from the logged in user on a ballot entry. Votes are stored in their own table, not in the graph. if already exists a vote for the same ballot_entry_id and userId, this function will update with new vote.
   - `ballot_entry_id`: uuid of the `ballot_entry` node that is being voted on
+  - `user_id`: uuid of the `userId`
   - `vote`: nullable boolean of the vote. If `null`, the vote is removed from the `ballot_entry`
   - returns the uuid of the row in the votes table
 
@@ -266,45 +280,64 @@ These operations use a previously created node/relationship and are idempotent w
 
 ![dictionary](./img/dictionary.png)
 
-- uses from `Word`:
+Uses following DefinitionService methods:
 
-  - `createWord(word: string, language: uuid): uuid`
-  - `getWord(word: string, language: uuid): uuid`
+- `createWord(word: string, langId: Nanoid): Promise<Nanoid>` 
+  - creates word. Uses from `Word`:
+  - `graphThirdLayerService.createWord(word: string, language: uuid): uuid`
 
-- `createDefinition (definition: string, language: uuid): uuid`
+- `createDefinition(definitionText: string,forNodeId: Nanoid): Promise<Nanoid>`
+  - creates a definition if it does not already exist for this node (check on full definition sting comparsion).
+  - `definition`: the definition value. Arbitrary string.
+  - `forNodeId`: the uuid of node for which this definition is written.
+  - Returns the uuid of the definition created. If a definition already exists for given node, it will return the uuid of the previously created definition.
 
-  - creates a definition in the given language if it does not already exist (check on full definition sting comparsion).
-  - `definition`: the definition. Arbitrary string.
-  - `language`: the uuid of the `table-row` of the language this definition is written at.
-  - Returns the uuid of the definition created. If a definition already exists, it will return the uuid of the previously created definition.
+- `getDefinitionsAsVotableContent(nodeId: string): Promise<Array<VotableContent>>`
+- finds definitions related to given nodeId, add votes and returns as VotableContent
+  ```
+  export type VotableContent = {
+    content: string;
+    upVote: number;
+    downVote: number;
+    id: Nanoid | null;
+  };
+  ```
 
-- `createDefinitionRelationship(from: uuid, to: uuid): uuid`
+- `getWordsAsVotableItems(langNodeId: string,): Promise<Array<VotableItem>>`
+- finds words for given language `langNodeId`, add votes and definitions as VotableContent 
+- returns VotableItem array
+```
+export type VotableItem = {
+  title: VotableContent;
+  contents: VotableContent[];
+};
+```
 
-  - connects from node (word|phrase) to its definition on same language using the definition relationship if one does not already exists.
-  - `from`: uuid of word|phrase node
-  - `to`: uuid of definition node. Shall be in the same languages.
-  - returns the uuid of the relationship node created or found.
-
-- `getDefinitions(forNodes: Array<uuid>, language: uuid): Array<uuid>`
-  - `forNodes`: uuid's of nodes (word|phrase) which definitions should be found.
-  - language: uuid
-    returns array of definitions for nodes (word|phrase) with given uuid's.
 
 ### Phrase Book
 
 ![phrase-book](./img/phrase-book.png)
 
-- uses from `Dictionary`:
+Uses following DefinitionService methods:
 
-  - `createDefinition (definition: string, language: uuid): uuid`
-  - `getDefinitions(forNodes: Array<uuid>, language: uuid): Array<uuid>`
+- `createDefinition` (look at  [Dictionary](#dictionary))
+- `getDefinitionsAsVotableContent` (look at  [Dictionary](#dictionary))
 
-- `createPhrase(phrase: string, language: uuid): uuid`
-
-  - creates a phrase in the given language if it does not already exist.
-  - `phrase`: the phrase.
-  - `language`: the uuid of the `table-row` of the language this phrase is in. `phrase`s shall only be in one language.
+- `createPhrase(phrase: string, langId: Nanoid): Promise<Nanoid>` 
+  - creates Phrase if it does not already exist (check on full definition sting comparsion).
+  - `phrase` - phrase value, arbitrary string.
+  - `langId` - Id of the language node, in which this phrase is written.
   - Returns the uuid of the phrase created. If a phrase already exists, it will return the uuid of the previously created phrase.
+
+- `getPhrasesAsVotableItems(langNodeId: string,): Promise<Array<VotableItem>>`
+  - finds phrases for given language `langNodeId`, add votes and definitions as VotableContent 
+  - returns VotableItem array
+```
+export type VotableItem = {
+  title: VotableContent;
+  contents: VotableContent[];
+};
+```
 
 - `getPhrase(phrase: string, language: uuid): uuid`
   - `phrase`: the phrase you want to find.
