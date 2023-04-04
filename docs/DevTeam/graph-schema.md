@@ -8,6 +8,10 @@ For example, you could have a document that you want everyone to be able to edit
 
 ## Tables
 
+Layer Cake 
+
+![layer-cake](./img/layers.png)
+
 Database [schema](https://github.com/etenlab/database-api/blob/main/src/core/sql/schema/v1.schema.sql)
 
 - `node_types`
@@ -276,45 +280,64 @@ type TablesName =
 
 ![dictionary](./img/dictionary.png)
 
-- uses from `Word`:
+Uses following DefinitionService methods:
 
-  - `createWord(word: string, language: uuid): uuid`
-  - `getWord(word: string, language: uuid): uuid`
+- `createWord(word: string, langId: Nanoid): Promise<Nanoid>` 
+  - creates word. Uses from `Word`:
+  - `graphThirdLayerService.createWord(word: string, language: uuid): uuid`
 
-- `createDefinition (definition: string, language: uuid): uuid`
+- `createDefinition(definitionText: string,forNodeId: Nanoid): Promise<Nanoid>`
+  - creates a definition if it does not already exist for this node (check on full definition sting comparsion).
+  - `definition`: the definition value. Arbitrary string.
+  - `forNodeId`: the uuid of node for which this definition is written.
+  - Returns the uuid of the definition created. If a definition already exists for given node, it will return the uuid of the previously created definition.
 
-  - creates a definition in the given language if it does not already exist (check on full definition sting comparsion).
-  - `definition`: the definition. Arbitrary string.
-  - `language`: the uuid of the `table-row` of the language this definition is written at.
-  - Returns the uuid of the definition created. If a definition already exists, it will return the uuid of the previously created definition.
+- `getDefinitionsAsVotableContent(nodeId: string): Promise<Array<VotableContent>>`
+- finds definitions related to given nodeId, add votes and returns as VotableContent
+  ```
+  export type VotableContent = {
+    content: string;
+    upVote: number;
+    downVote: number;
+    id: Nanoid | null;
+  };
+  ```
 
-- `createDefinitionRelationship(from: uuid, to: uuid): uuid`
+- `getWordsAsVotableItems(langNodeId: string,): Promise<Array<VotableItem>>`
+- finds words for given language `langNodeId`, add votes and definitions as VotableContent 
+- returns VotableItem array
+```
+export type VotableItem = {
+  title: VotableContent;
+  contents: VotableContent[];
+};
+```
 
-  - connects from node (word|phrase) to its definition on same language using the definition relationship if one does not already exists.
-  - `from`: uuid of word|phrase node
-  - `to`: uuid of definition node. Shall be in the same languages.
-  - returns the uuid of the relationship node created or found.
-
-- `getDefinitions(forNodes: Array<uuid>, language: uuid): Array<uuid>`
-  - `forNodes`: uuid's of nodes (word|phrase) which definitions should be found.
-  - language: uuid
-    returns array of definitions for nodes (word|phrase) with given uuid's.
 
 ### Phrase Book
 
 ![phrase-book](./img/phrase-book.png)
 
-- uses from `Dictionary`:
+Uses following DefinitionService methods:
 
-  - `createDefinition (definition: string, language: uuid): uuid`
-  - `getDefinitions(forNodes: Array<uuid>, language: uuid): Array<uuid>`
+- `createDefinition` (look at  [Dictionary](#dictionary))
+- `getDefinitionsAsVotableContent` (look at  [Dictionary](#dictionary))
 
-- `createPhrase(phrase: string, language: uuid): uuid`
-
-  - creates a phrase in the given language if it does not already exist.
-  - `phrase`: the phrase.
-  - `language`: the uuid of the `table-row` of the language this phrase is in. `phrase`s shall only be in one language.
+- `createPhrase(phrase: string, langId: Nanoid): Promise<Nanoid>` 
+  - creates Phrase if it does not already exist (check on full definition sting comparsion).
+  - `phrase` - phrase value, arbitrary string.
+  - `langId` - Id of the language node, in which this phrase is written.
   - Returns the uuid of the phrase created. If a phrase already exists, it will return the uuid of the previously created phrase.
+
+- `getPhrasesAsVotableItems(langNodeId: string,): Promise<Array<VotableItem>>`
+  - finds phrases for given language `langNodeId`, add votes and definitions as VotableContent 
+  - returns VotableItem array
+```
+export type VotableItem = {
+  title: VotableContent;
+  contents: VotableContent[];
+};
+```
 
 - `getPhrase(phrase: string, language: uuid): uuid`
   - `phrase`: the phrase you want to find.
