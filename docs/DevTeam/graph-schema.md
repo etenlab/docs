@@ -89,7 +89,7 @@ These operations use a previously created node/relationship and are idempotent w
 
 ### Voting
 
-![voting](./img/voting1.png)
+![voting](./img/voting.png)
 
 #### Elections
 
