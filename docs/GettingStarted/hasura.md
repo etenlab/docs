@@ -1,6 +1,6 @@
-# Preparing Hasura
+# Preparing Hasura (Optionally)
 
-For running Hasura server in production, some manual actions are needed.
+Hasura server can be used to get access to public database chema via graphql interface.
 
 ## Service setup
 
