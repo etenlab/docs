@@ -1,6 +1,6 @@
 # Preparing Hasura (Optionally)
 
-Hasura server can be used to get access to public database chema via graphql interface.
+Hasura server can be used to get access to public database schema via graphql interface.
 
 ## Service setup
 
