@@ -1,6 +1,6 @@
 # Docs
 ## Description
-You are looking at it. It is docusaurus-based documentation on this poject.
+You are looking at it. It is docusaurus 2 -based documentation on this poject.
 
 ## How to Contribute
 You must have installed git and npm in your system.
