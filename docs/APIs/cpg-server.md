@@ -1,10 +1,10 @@
-# CPG API
+# CPG-server API
 
-CPG API is service requests for CPG APP
+CPG-server API is service requests for CPG APP
 
 ## Data Synchronization
 
-CPG API provides REST endpoints for syncing data between the server and clients (CPG APPs).
+CPG-server API provides REST endpoints for syncing data between the server and clients (CPG APPs).
 That required doing schema changes:
 
 - all data has globally unique ids (`uuid`s): both server-side and client-side. Hence, incremental IDs are not needed.
