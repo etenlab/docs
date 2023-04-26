@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - main
-      
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -17,7 +17,7 @@ jobs:
           node-version: 16
 
       - name: Install dependencies
-        run: npm install 
+        run: npm install
 
       - name: Build
         run: npm run build
@@ -29,5 +29,30 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_PROD_S3_PUSHER_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
 
-      - name: Deploy static site to S3 bucket
-        run: aws s3 sync build/ s3://docs.lab.eten.bible
+      # - name: Deploy static site to S3 bucket
+      #   run: aws s3 sync build/ s3://docs.lab.eten.bible
+
+      - uses: dkershner6/aws-ssm-getparameters-action@v1
+        with:
+          parameterPairs: '/dev/deploy/docs.dev.lab/env = ENV'
+
+      - name: store env
+        run: |
+          cat << EOF > .env
+          ${{ env.ENV }}
+          EOF
+
+      - name: Load env
+        uses: xom9ikk/dotenv@v2
+
+      - name: npm ci --force
+        run: npm ci --force
+
+      - name: npm run build
+        run: npm run build
+
+      - uses: TimekillerTK/s3-sync-action@master
+        with:
+          args: --follow-symlinks --delete
+        env:
+          SOURCE_DIR: 'build'
