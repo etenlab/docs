@@ -3,6 +3,7 @@
 ## Description
 
 ## How to Run
+
 ### Cloning the App
 
 ```bash
@@ -20,7 +21,6 @@ $ npm i
 ```bash
 $ ionic serve
 ```
-
 
 ## How to Contribute
 
