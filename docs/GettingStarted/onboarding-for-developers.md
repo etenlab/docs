@@ -24,13 +24,22 @@ git clone git@github.com:etenlab/dev-env.git
 ```bash
 docker-compose -f local/docker-compose.yml --env-file .env up
 ```
+If you have troubles like `ERROR: The Compose file './local/docker-compose.yml' is invalid` try to replace command `docker-compose`  with `docker compose`:
+```bash
+docker compose -f local/docker-compose.yml --env-file .env up
+```
+There exists several versions of ther docker compose tool, and regarding the version you have installed in the your system, the way docker compose should be called can differ.
 
-Some services may temporary fail, but eventually there should be no errors in the console. At this point, everything is running correctly. Now, let's fill the database with some data
+### Warnings: 
+- you should eventually pull new containers. It is needed to keep them up-to-date if some changes was made by the other devs:
+```bash
+docker-compose -f local/docker-compose.yml --env-file .env pull
+```
 
-Notes:
+### Notes:
 
 - If some of the services fail to listen on specific ports, ensure the exposed ports in you `.env` file not to be taken by other processes in your host system (listening on `localhost`). To check that, run `sudo netstat -tlnp` (Ubuntu) or other command specific to your OS.
-- If you want to run only specific services, provide their names at the end of the command, e.g. `docker-compose -f local/docker-compose.yml --env-file .env up database-api discussion-api`
+- If you want to run only specific services, provide their names at the end of the command, e.g. `docker-compose -f local/docker-compose.yml --env-file .env up postgres cpg-server `
 - If for some reason you run `docker` outside your docker's host system, e.g. in a devcontainer, virtual machine, etc, make sure to have correct value for variable `KC_DB_INIT_SCRIPT_PATH` as it is should point to the file on your docker's host system.
 
 ## Setup development in VS Code
