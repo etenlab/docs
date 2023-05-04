@@ -2,6 +2,21 @@
 
 CPG-server API is service requests for CPG APP
 
+When server started locally you can check if all ok by visiting url
+http://localhost:8201 
+and chek if you see responce
+`
+{"version":"0.0.1","name":"cpg-server"}
+`
+## GraphQl
+GraphQl endpoint is `/graphql` i.e. you cant navigate to 
+http://localhost:8201/graphql
+
+and test queries
+
+### Note:
+- the port 8201 is defined in .env file and can be changed
+
 ## Data Synchronization
 
 CPG-server API provides REST endpoints for syncing data between the server and clients (CPG APPs).
