@@ -2,6 +2,26 @@
 
 ## Description
 
+## How to Run
+### Cloning the App
+
+```bash
+$ git clone https://github.com/etenlab/crowd.Bible.git
+```
+
+### Install dependencies
+
+```bash
+$ npm i
+```
+
+### Running the App
+
+```bash
+$ ionic serve
+```
+
+
 ## How to Contribute
 
 We are using custom react component library built with MUI material v5, React-Quill, React-icons.
