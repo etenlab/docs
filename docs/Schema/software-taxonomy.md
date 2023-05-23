@@ -1,7 +1,3 @@
----
-sidebar_position: 3
----
-
 # Software Taxonomy
 
 *Packages, components, libraries, APIs, etc*
