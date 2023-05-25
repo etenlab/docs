@@ -1,41 +1,12 @@
-# Graph Schema
+# crowd.Bible API Reference
 
-## Introduction
+**This document is a work in progress and not currently up to date:)**
 
-The graph schema is designed specifically to fit the needs of a crowd-sourcing application. It can be used to persist any kind of data structure, while allow the structure to be mutated in any way by any one. Any form of the structure can be recovered for any use case.
+## API Layers
 
-For example, you could have a document that you want everyone to be able to edit in any way they see fit. You also want to be able to view the document using only the edits of certain users during a certain timeframe. You'd also like to let users vote on different edits to the document, while showing the document using the most voted on edits, while also giving the option to show the edits from the votes of a specific group of users.
+The sub-schema enables the local crowd.Bible client's API to be built in layers:
 
-## Tables
-
-Layer Cake 
-
-![layer-cake](./img/layers.png)
-
-Database [schema](https://github.com/etenlab/database-api/blob/main/src/core/sql/schema/v1.schema.sql)
-
-- `node_types`
-- `nodes`
-- `node_property_keys`
-- `node_property_values`
-- `relationship_types`
-- `relationships`
-- `relationship_property_keys`
-- `relationship_property_values`
-
-### Legend for Illustrations
-
-![Graph Legend](./img/legend.png)
-
-- Nodes are represented by orange boxes and are the root unit of how we store information in the graph.
-- Every node has a type name stored as a string.
-- Relationships (rel) connect two nodes.
-- Every rel has a type name stored as a string.
-- Both nodes and relationships can have properties.
-- Properties are split into keys and values.
-- Property keys point to a node or rel.
-- Property values point to a property key.
-- The decoupling of property keys and values allows us to expose options to users so that they can vote on whether a key is appropriate or not on a node/rel, as well as voting on what the value should be for each property key. This is one important way in which we enable crowd-sourcing.
+![layer-cake](./img/crowd-bible-api-layers.png)
 
 ## Layer 1 API: Low Level Operations using the Graph Repositories
 
@@ -347,3 +318,5 @@ export type VotableItem = {
 ### Versification
 
 ![versification](./img/versification.png)
+
+

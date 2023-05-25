@@ -4,12 +4,12 @@ sidebar_position: 2
 
 # Abstract Graph Schema
 
-The BiblioNexus Foundation Abstract Graph Schema (AGS) is meant to provided applications a data interchange format that provides for the following features:
+The BiblioNexus Foundation Abstract Graph Schema (AGS) is meant to provide applications a data interchange format that provides for the following features:
 
 ### Features
 
 1. **Auto-merging**: merging any and all datasets is conflict-free.
-1. **Graph friendly**: graph structures can potentially include a large amount of many-to-many relationships. Storing large graphs in trees or documents can lead to an explosion of pointers/references. A native graph format is best for large graphs while it also is able to accomodate other structures like trees, lists, sets, tables, and documents.
+1. **Graph friendly**: graph structures can potentially include a large amount of many-to-many relationships. Storing large graphs in trees or documents can lead to an explosion of pointers/references. A native graph format is best for large graphs while it is also able to accomodate other structures like trees, lists, sets, tables, and documents.
 1. **Sub-schemas**: we don't want to dictate how other apps schema their data. By requiring an abstract graph structure, apps are able to provide their own sub-schemas on top of the abstract graph schema to accommodate the preferences for each application. No communication is needed between teams to agree on sub-schemas, yet everyone still enjoys the auto-merging features of the abstract graph and is able to use each other's sub-schemas by choice.
 1. **Immutibility**: data is never deleted, only appended. This enables version/time aware queries to be used.
 
@@ -42,7 +42,18 @@ The Six Tables are:
 1. `node_property_values`
 1. `relationship_property_values`
 
-Each table uses a `UUID` as its unique primary key and for any necessary foreign key references.
+Notes: 
+
+- Each table uses a `UUID` as its unique primary key and for any necessary foreign key references.
+- Nodes are represented by orange boxes and are the root unit of how we store information in the graph.
+- Every node has a type name stored as a string.
+- Relationships (rel) connect two nodes.
+- Every rel has a type name stored as a string.
+- Both nodes and relationships can have properties.
+- Properties are split into keys and values.
+- Property keys point to a node or rel.
+- Property values point to a property key.
+- The decoupling of property keys and values allows us to expose options to users so that they can vote on whether a key is appropriate or not on a node/rel, as well as voting on what the value should be for each property key. This is one important way in which we enable crowd-sourcing.
 
 ### Example Graph Data
 
