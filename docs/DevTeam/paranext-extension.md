@@ -1,3 +1,4 @@
+# Paranext extension
 ## Integration crowd.Bible to platform.Bible as extension
 - this concept is under development / reserarch yet.
 - here we note gathered experience of existing problems and known solutions.
