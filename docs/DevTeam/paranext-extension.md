@@ -30,14 +30,45 @@ Note: you may run `npm run build:vite` just to build extension without starting 
 ### What we already did 
 We forked Paranext extension template  form [https://github.com/paranext/paranext-extension-template] and changed it to make Our experimental extension. 
 
-In common
+There we:
 - removed html web view file (lib/extension-template-html.web-view.ejs) and cleaned up from code - we don't need it.
 - renamed paranext-extension-template to crowd-bible-extension everywhere
 - simplified/removed work with DataProviderEngine at main.ts - temporary, we don't need it yet, until we fugure out how to deal with data interchange.
 - copied all code of crowd.Bible to /src
 - moved all context providers from index.ts to App.tsx to make App.tsx as entry point for extension. index.ts is not needed anymore, but left as example.
 - temporary removed all context and all logic, left only basic button imported from ui-kit  and text field to prove the posibility of using ui-kit components.
-- further work is to return one-by-one context providers and components.
+- we use absolute path alias in crowd.Bible, so we tuned up paths resolution `vite-web-view.config.ts` by adding  alias:
+```
+    ...
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, '../lib/src'),
+      },
+    }, 
+    ...
+```
+- to use .env variables, the next tuning of `vite-web-view.config.ts` should be applied:
+```
+    ...
+    define: { 
+      'process.env.NODE_ENV': JSON.stringify(mode),
+      // There were a lot of process variables that we must bake in. Set them to whatever is
+      // correct for your build process
+      'process.env.REACT_APP_CPG_SERVER_URL': '"FAKE_URL"',
+      'process.env.REACT_APP_KEYCLOAK_URL': '"FAKE_URL"',
+      'process.env.REACT_APP_KEYCLOAK_REALM': '"FAKE_REALM"',
+      'process.env.REACT_APP_KEYCLOAK_CLIENT_ID': '"FAKE_CID"',
+      'process.env.REACT_APP_KEYCLOAK_CLIENT_SECRET': '"FAKE_SECRET"',
+      'process.env.PUBLIC_URL': '"FAKE_URL"',
+      'process.env.REACT_APP_LOGLEVEL': '0',
+      'process.env.REACT_APP_LOGTRACEALL': 'true',
+      'process.env.STORYBOOK_LOGLEVEL': '0',
+      'process.env.STORYBOOK_LOGTRACEALL': 'true',
+    },
+    ...
+```
+- now we can bring back ThemeProvider, IonReactRouter and PageLayout. It can be built and it renders, but still thows errors wher try to navigate.
+- further work is to return one-by-one context providers like KeyCloak, state and state management, other components.
 
 
 See repo's [https://github.com/etenlab/extension-paranext] commit history for more details.
