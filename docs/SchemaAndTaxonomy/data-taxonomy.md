@@ -1,3 +1,7 @@
+---
+sidebar_position: 4
+---
+
 # Data Taxonomy
 
 1. Biblical Texts
