@@ -99,11 +99,61 @@ Looks like you may need to allow access to https: for connect-src and wasm-unsaf
 I don't know if we will be comfortable enabling any unsafe-eval-like content security policies or not. We will have to discuss this.
 ```
 
+- after changing Content-Security-Policy in `web-view.service.ts` of paranext-core
+```
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+        default-src 'none';
+        script-src 'self' 'unsafe-eval' papi-extension: 'unsafe-inline';
+        style-src 'self' papi-extension: 'unsafe-inline';
+        frame-src 'self';
+        worker-src 'self';
+        manifest-src 'self';
+        connect-src 'self' https: ws:;
+        img-src 'self' papi-extension: https: data:;
+        media-src 'self' papi-extension: https:;
+        font-src 'self' papi-extension: https: data:;
+        form-action 'self';"
+    />
+```
+- changing contentSecurityPolicy in `web-view.service.ts` of paranext-core
+```
+  const contentSecurityPolicy = `<meta http-equiv="Content-Security-Policy"
+    content="
+      default-src 'none';
+      script-src 'self' 'unsafe-eval' papi-extension: ${specificSrcPolicy};
+      style-src 'self' papi-extension: 'unsafe-inline';
+      connect-src 'self' https: ;
+      img-src 'self' https: data: papi-extension:;
+      media-src 'self' papi-extension:;
+      font-src 'self' https: papi-extension: data:;
+      form-action 'self';
+      navigate-to 'none';
+    ">`;
+```
+
+Removing from `web-view.service.ts` line with
+```
+  delete window.XMLHttpRequest;
+```
+
+After that the extendion can be buit and started, so we breaked through initSqlJs(). 
+But when i try to move further and uncmment the next line at `data-source.ts`
+```
+return new DataSource(opts)
+```
+or even simplified 
+```
+return new DataSource({type:'sqljs'})
+```
+we are getting  error on build `[ImportManager] Cannot read properties of undefined (reading 'at')`
+
+
+
 Note: all errors on build stage are represented as `[ImportManager] Cannot read properties of undefined (reading 'at')` - it is significantly slows debugging process, making barely possible to understand what's gone wrong.
 
 Note2: After changing something and restarting the app, it starts electron app and build process concurrently, so appearing changes are syncronous, so you have to wait some time and don't make conclusions too early.
 
-5. The bit question still is interaction with the outer world. 
-Theoretically, it is worth to try to substitute `fetch` that used by ApolloClient by `fetch` provided by papi interface to tproxy requests. Other solution is to modify paranext's rules and allow crowd.Bible to make https requests to cpg server directly.
-
-6. Still undiscovered qestion - how to be with `<img src='https://s3-bucket-with-map-files' >`
+5. The big question is interaction with the outer services/resources like cpg-server/aws s3 buckets/CDNs/ etc. 
+Theoretically, it is worth to try to substitute `fetch` that used by ApolloClient by `fetch` provided by papi interface to tproxy requests. Or just relax security policies like we did to get sql.js wasm file and allow crowd.Bible to make https requests to outer services directly.
