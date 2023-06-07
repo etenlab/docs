@@ -102,3 +102,8 @@ I don't know if we will be comfortable enabling any unsafe-eval-like content sec
 Note: all errors on build stage are represented as `[ImportManager] Cannot read properties of undefined (reading 'at')` - it is significantly slows debugging process, making barely possible to understand what's gone wrong.
 
 Note2: After changing something and restarting the app, it starts electron app and build process concurrently, so appearing changes are syncronous, so you have to wait some time and don't make conclusions too early.
+
+5. The bit question still is interaction with the outer world. 
+Theoretically, it is worth to try to substitute `fetch` that used by ApolloClient by `fetch` provided by papi interface to tproxy requests. Other solution is to modify paranext's rules and allow crowd.Bible to make https requests to cpg server directly.
+
+6. Still undiscovered qestion - how to be with <img src='https://s3-bucket-with-map-files' >
