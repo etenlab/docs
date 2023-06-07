@@ -1,6 +1,6 @@
 # Paranext extension
 ## Integration crowd.Bible to platform.Bible as extension
-- this concept is under development / reserarch yet.
+- this concept is under development / research yet.
 - here we note gathered experience of existing problems and known solutions.
 
 ### Links 
@@ -83,3 +83,22 @@ See repo's [https://github.com/etenlab/extension-paranext] commit history for mo
 2. Despite module supports automatic rebuilding on the fly when changed, it is recommend to stop the whole paranext-core and rebuild using `npm run start`.
 
 3. If you get app running but with empty extension's window, you most likely have errors on your extension's code. Probably, they're realted to absence of some `env` variables. Include them into `vite-web-view.config.ts`
+
+4. Error on build like
+`[ImportManager] Cannot read properties of undefined (reading 'at')` when atempt to nring back singletons most likely caused by initializing sql.js at `data-source.ts` because of downloading and running wasm file.
+possible (not checked yet) thoughts:
+```
+ https://sql.js.org/#/
+By default, sql.js uses wasm, and thus needs to load a .wasm file in addition to the javascript library. You can find this file in ./node_modules/sql.js/dist/sql-wasm.wasm after installing sql.js from npm, and instruct your bundler to add it to your static assets or load it from a CDN. Then use the locateFile property of the configuration object passed to initSqlJs to indicate where the file is. If you use an asset builder such as webpack, you can automate this.
+```
+
+or  maybe folloow TJ Couch's advice:
+```
+Looks like you may need to allow access to https: for connect-src and wasm-unsafe-eval on script-src in the content security policies in index.ejs and web-view.service.ts. Maybe try that and see what happens?
+
+I don't know if we will be comfortable enabling any unsafe-eval-like content security policies or not. We will have to discuss this.
+```
+
+Note: all errors on build stage are represented as `[ImportManager] Cannot read properties of undefined (reading 'at')` - it is significantly slows debugging process, making barely possible to understand what's gone wrong.
+
+Note2: After changing something and restarting the app, it starts electron app and build process concurrently, so appearing changes are syncronous, so you have to wait some time and don't make conclusions too early.
