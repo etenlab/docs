@@ -106,4 +106,4 @@ Note2: After changing something and restarting the app, it starts electron app a
 5. The bit question still is interaction with the outer world. 
 Theoretically, it is worth to try to substitute `fetch` that used by ApolloClient by `fetch` provided by papi interface to tproxy requests. Other solution is to modify paranext's rules and allow crowd.Bible to make https requests to cpg server directly.
 
-6. Still undiscovered qestion - how to be with <img src='https://s3-bucket-with-map-files' >
+6. Still undiscovered qestion - how to be with `<img src='https://s3-bucket-with-map-files' >`
