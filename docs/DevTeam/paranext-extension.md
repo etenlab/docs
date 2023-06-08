@@ -14,6 +14,8 @@ Our experimental extension [https://github.com/etenlab/extension-paranext]
 Notes: 
 - Our experimental extension is made from Paranext extension template by cleaning up redundant code and adding some configuration.
 - Also some stable state of the crowd.Bible app was copied to /src folder of Our experimental extension. Our goal is to make this code working. But no luck with starting it "as is", so we cleaned up all logic and components and try to add them step-by-step.
+- For now, we can not insantiate typeOrm's DataSource.
+- For now, we can not make routing working properly.
 
 ### How to make it running
 
@@ -99,7 +101,8 @@ Looks like you may need to allow access to https: for connect-src and wasm-unsaf
 I don't know if we will be comfortable enabling any unsafe-eval-like content security policies or not. We will have to discuss this.
 ```
 
-- after changing Content-Security-Policy in `web-view.service.ts` of paranext-core
+So we try to implement it:
+- change Content-Security-Policy in `web-view.service.ts` of paranext-core
 ```
     <meta
       http-equiv="Content-Security-Policy"
@@ -117,7 +120,7 @@ I don't know if we will be comfortable enabling any unsafe-eval-like content sec
         form-action 'self';"
     />
 ```
-- changing contentSecurityPolicy in `web-view.service.ts` of paranext-core
+- change contentSecurityPolicy in `web-view.service.ts` of paranext-core
 ```
   const contentSecurityPolicy = `<meta http-equiv="Content-Security-Policy"
     content="
@@ -133,13 +136,13 @@ I don't know if we will be comfortable enabling any unsafe-eval-like content sec
     ">`;
 ```
 
-Removing from `web-view.service.ts` line with
+- remove from `web-view.service.ts` line with
 ```
   delete window.XMLHttpRequest;
 ```
 
-After that the extendion can be buit and started, so we breaked through initSqlJs(). 
-But when i try to move further and uncmment the next line at `data-source.ts`
+After that the extention can be buit and started, so we breaked through initSqlJs(). 
+But when i try to move further and uncomment the next line at `data-source.ts`
 ```
 return new DataSource(opts)
 ```
@@ -149,7 +152,9 @@ return new DataSource({type:'sqljs'})
 ```
 we are getting  error on build `[ImportManager] Cannot read properties of undefined (reading 'at')`
 
+So we stuck with initializing typeOrm's DataSource for now.
 
+Look at branch [https://github.com/etenlab/extension-paranext/tree/feat/try-to-add-whole-app]
 
 Note: all errors on build stage are represented as `[ImportManager] Cannot read properties of undefined (reading 'at')` - it is significantly slows debugging process, making barely possible to understand what's gone wrong.
 
@@ -157,3 +162,11 @@ Note2: After changing something and restarting the app, it starts electron app a
 
 5. The big question is interaction with the outer services/resources like cpg-server/aws s3 buckets/CDNs/ etc. 
 Theoretically, it is worth to try to substitute `fetch` that used by ApolloClient by `fetch` provided by papi interface to tproxy requests. Or just relax security policies like we did to get sql.js wasm file and allow crowd.Bible to make https requests to outer services directly.
+
+6. IonReactRouter doesn't work with electron for me. It causes error with urls like this ![Error](./img/error_router_Screenshot_20230608_102946.jpg) 
+- I tried to use `import { HashRouter } from 'react-router-dom';` instead. It doesn't throw errors but doesn't work as expected. Maybe, it is possible to tune it up to make working, need to experiment more.
+- I tried to use `import { IonReactHashRouter } from '@ionic/react-router';` instead. It doesn't throw error but neither work as expected (Like HashRouter). Maybe, it is possible to tune it up to make working, need to experiment more. 
+
+So we stuck with routing.
+
+Look at Branch [https://github.com/etenlab/extension-paranext/tree/feat/try-fix-routing]
