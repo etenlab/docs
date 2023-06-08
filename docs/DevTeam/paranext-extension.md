@@ -1,5 +1,9 @@
 # Paranext extension
-## Integration crowd.Bible to platform.Bible as extension
+there is two types of estensions in Paranext (Platform.Bible): 
+- internal (bundeled)
+- external (standalone)
+We concentrate here to make crowd.Bible to make as external (standalone) extension first.
+## Integration crowd.Bible to platform.Bible as standalone extension
 - this concept is under development / research yet.
 - here we note gathered experience of existing problems and known solutions.
 
