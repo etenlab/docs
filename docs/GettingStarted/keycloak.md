@@ -9,7 +9,7 @@ Username: admin
 Password: admin
 ```
 
-Note: for all remaining steps, it's possible the relam/clients already exist, in that case, verify the settings match
+Note: for all remaining steps, if using the dockerized version, the realm/clients should already exist, in that case, verify the settings match
 
 3. Click on the Master dropdown and the click on Create Realm to Create a new Realm for our app, can name it Showcase, just need to enter the Realm name can keep other fields as it is.
 Note: check if .env variable KEYCLOAK_REALM at database-api corresponds to entered realm name (i.e. 'Showcase', in this particular example)
