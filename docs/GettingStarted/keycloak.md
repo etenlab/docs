@@ -9,6 +9,8 @@ Username: admin
 Password: admin
 ```
 
+Note: for all remaining steps, it's possible the relam/clients already exist, in that case, verify the settings match
+
 3. Click on the Master dropdown and the click on Create Realm to Create a new Realm for our app, can name it Showcase, just need to enter the Realm name can keep other fields as it is.
 Note: check if .env variable KEYCLOAK_REALM at database-api corresponds to entered realm name (i.e. 'Showcase', in this particular example)
 
@@ -25,17 +27,22 @@ For example
 ```
 KEYCLOAK_CLIENTS=showcase:abcabc,storybook:edfedf,showcase-auth:gJ1ynKzVynB0QgNWldmLianr2UyjTPkZ
 ```
-9. in clients settings page, enter the values as below
+
+9. The `showcase-auth` client will also be used for the `REACT_APP_KEYCLOAK_CLIENT_ID` in crowd.Bible
+
+10. in clients settings page, enter the values as below
 
 ```
 Root URL: http://localhost:3000
 Home URL: http://localhost:3000
 Valid redirect URIs: http://localhost:3000/*
 Valid post logout redirect URIs: http://localhost:3000/*
-Web origins: http://localhost:3000 (this is required for CORS)
+Web origins: http://localhost:3000 and http://localhost:8100 (this is required for CORS)
 Client authentication: Off
 ```
 
 then save the page.
 
-9. We can create roles in Realm Roles page to setup different levels of permissions, for now you can create a role named 'showcase-user' (this role i used in the showcase project for testing protected page) and assign it to the user created,
+11. Go to Clients Page in left side menu and select `admin-cli`. In Client Settings, add `http://localhost:3000` and `http://localhost:8100` to web origins. Then in the Credentials tab copy the client secret. Use this value for the `REACT_APP_KEYCLOAK_CLIENT_SECRET` in crowd.Bible.
+
+12. We can create roles in Realm Roles page to setup different levels of permissions, for now you can create a role named 'showcase-user' (this role i used in the showcase project for testing protected page) and assign it to the user created
