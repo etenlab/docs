@@ -174,3 +174,28 @@ Theoretically, it is worth to try to substitute `fetch` that used by ApolloClien
 So we stuck with routing.
 
 Look at Branch [https://github.com/etenlab/extension-paranext/tree/feat/try-fix-routing]
+
+
+
+## Experiments by Aslam
+
+I've installed and run paranext, for me it worked well, loaded all datas including loading versus, extensions data etc
+
+### Installation Steps
+
+installed linux system libraries needed for electron as per instructions in https://www.electronjs.org/docs/latest/development/build-instructions-linux
+installed .Net 7 SDK from https://learn.microsoft.com/en-us/dotnet/core/install/ .
+cloned paranext-core and installed dependencies using npm install
+then Started the app in the dev environment using npm start
+
+### Issues Faced While installing
+
+got some issues while installing system libraries, so, some libraries manually installed by downloading using wget and installed using dpkg -i
+got some issues while running the app, after sometime i found that its because of permission issues.
+another issue got while running the electron, its fixed by setting 7455 permission to node_modules/electron/dist/chrome-sandbox and set user root as its owner
+another issue while running the app was, function fetch not defined, it was due to my node version was 16.20.0, paranext required node greater than 18.x, function fetch is available after node 18.x . i fixed this by installing node-fetch
+Extension development
+
+i copied hello-world extension and made some changes then wrote code to fetch files list from cpg-server using fetch function, while i tried to call fetch function and printed the response in console
+
+i tried to use ui-kit components in extension, paranext wont allow to use the extension directly, need to use by using bundling tool vite, i had started experimenting it, but i couldnt complete it as my allowed time limiet exceeded.
