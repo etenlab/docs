@@ -4,83 +4,83 @@ sidebar_position: 4
 
 # Data Taxonomy
 
-1. Biblical Texts
-    1. Primary Texts
-        1. Bible
-        1. Scripture
-    1. Narratives
-        1. Bible Stories
-1. Translation Tools
-    1. Language Resources
-        1. Lexicons
-        1. Original Languages
-        1. Phrase Books
-        1. Dictionaries
-        1. Glossaries
-    1. Translation Processes and Guidance
-        1. Translation Checks
-        1. Translation Memory
-        1. Translation Notes
-        1. Translation Questions
-        1. Translation Manuals
-1. Interpretative and Study Tools
-    1. Annotation and Commentary
-        1. Study Notes
-        1. Commentaries
-        1. Annotations
-    1. Exegetical Resources  
-1. Visual and Supplementary Aids
-    1. Visual Aids
-        1. Maps
-        1. Images
-    1. Linguistic Tools
-        1. Syntax Trees
-    1. Data Structures
-        1. Linking Data
-1. Specialized Biblical Texts
-    1. Sign Language Bibles
-    1. Oral Bibles
-1. Learning and Training Resources
-    1. General Learning
-        1. Training Resources
-    1. Translation Training
-        1. Translation Training Resources
-1. Data and Analysis
-    1. Data Types
-        1. User Data
-        1. Behavior Data
-        1. Form Data
-        1. Engagement Data
-        1. Sense Data
-    1. Analytical Models and Techniques
-        1. AI/ML Models
-        1. Sentiment Analysis
-1. Historical and Cultural Context
-    1. Historical Texts
-    1. Archaeological Findings
-    1. Anthropological Studies
-1. Theological Perspectives
-    1. Doctrinal Interpretations
-1. Devotional Materials
-    1. Prayer Guides
-    1. Daily Devotionals
-    1. Worship Materials
-1. Educational Formats
-    1. Video Courses
-    1. Podcasts
-    1. Interactive Apps
-1. Community and Social Engagement
-    1. Discussion Platforms
-    1. Collaboration Tools
-    1. Social Media Groups
-1. Accessibility Tools
-    1. Braille Bibles
-    1. Audio Bibles
-    1. Easy1.Read Versions
-1. Children and Youth Resources
-    1. Children's Bibles
-    1. Animated Bible Stories
-    1. Youth Study Guides
-1. Ethical and Privacy Considerations
-    1. Ethical Guidelines
-    1. Privacy Protections
+- D1: Biblical Texts
+    - D1.1: Primary Texts
+        - D1.1.1: Bible
+        - D1.1.2: Scripture
+    - D1.2: Narratives
+        - D1.2.1: Bible Stories
+- D2: Translation Tools
+    - D2.1: Language Resources
+        - D2.1.1: Lexicons
+        - D2.1.2: Original Languages
+        - D2.1.3: Phrase Books
+        - D2.1.4: Dictionaries
+        - D2.1.5: Glossaries
+    - D2.2: Translation Processes and Guidance
+        - D2.2.1: Translation Checks
+        - D2.2.2: Translation Memory
+        - D2.2.3: Translation Notes
+        - D2.2.4: Translation Questions
+        - D2.2.5: Translation Manuals
+- D3: Interpretative and Study Tools
+    - D3.1: Annotation and Commentary
+        - D3.1.1: Study Notes
+        - D3.1.2: Commentaries
+        - D3.1.3: Annotations
+    - D3.2: Exegetical Resources  
+- D4: Visual and Supplementary Aids
+    - D4.1: Visual Aids
+        - D4.1.1: Maps
+        - D4.1.2: Images
+    - D4.2: Linguistic Tools
+        - D4.2.1: Syntax Trees
+    - D4.3: Data Structures
+        - D4.3.1: Linking Data
+- D5: Specialized Biblical Texts
+    - D5.1: Sign Language Bibles
+    - D5.2: Oral Bibles
+- D6: Learning and Training Resources
+    - D6.1: General Learning
+        - D6.1.1: Training Resources
+    - D6.2: Translation Training
+        - D6.2.1: Translation Training Resources
+- D7: Data and Analysis
+    - D7.1: Data Types
+        - D7.1.1: User Data
+        - D7.1.2: Behavior Data
+        - D7.1.3: Form Data
+        - D7.1.4: Engagement Data
+        - D7.1.5: Sense Data
+    - D7.2: Analytical Models and Techniques
+        - D7.2.1: AI/ML Models
+        - D7.2.2: Sentiment Analysis
+- D8: Historical and Cultural Context
+    - D8.1: Historical Texts
+    - D8.2: Archaeological Findings
+    - D8.3: Anthropological Studies
+- D9: Theological Perspectives
+    - D9.1: Doctrinal Interpretations
+- D10: Devotional Materials
+    - D10.1: Prayer Guides
+    - D10.2: Daily Devotionals
+    - D10.3: Worship Materials
+- D11: Educational Formats
+    - D11.1: Video Courses
+    - D11.2: Podcasts
+    - D11.3: Interactive Apps
+- D12: Community and Social Engagement
+    - D12.1: Discussion Platforms
+    - D12.2: Collaboration Tools
+    - D12.3: Social Media Groups
+- D13: Accessibility Tools
+    - D13.1: Braille Bibles
+    - D13.2: Audio Bibles
+    - D13.3: Easy Read Versions
+- D14: Children and Youth Resources
+    - D14.1: Children's Bibles
+    - D14.2: Animated Bible Stories
+    - D14.3: Youth Study Guides
+- D15: Ethical and Privacy Considerations
+    - D15.1: Ethical Guidelines
+    - D15.2: Privacy Protections
